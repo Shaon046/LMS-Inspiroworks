@@ -1,0 +1,163 @@
+<template>
+  <div class="dashboard">
+    <div class="profile">
+      <div class="profile-wrapper">
+        <span class="username">Admin</span>
+        <span class="avatar">A</span>
+      </div>
+    </div>
+
+    <!-- new -->
+    <div class="slds-tabs_default slds-tabs_medium ">
+      <div class="navbar">
+        <ul class="slds-tabs_default__nav nav-links" role="tablist">
+          <li class="slds-tabs_default__item slds-is-active" title="Dashboard" role="presentation" onclick={selectedTab}
+            data-id="Dashboard">
+            <a class="slds-tabs_default__link" href="#Dashboard" role="tab" tabindex="0" aria-selected="true"
+              aria-controls="Dashboard" id="Dashboard-tab">Dashboard</a>
+          </li>
+          <li class="slds-tabs_default__item" title="All Courses" role="presentation" onclick={selectedTab}
+            data-id="All_Courses">
+            <a class="slds-tabs_default__link" href="#All_Courses" role="tab" tabindex="-1" aria-selected="false"
+              aria-controls="All_Courses" id="All_Courses-tab">All Courses</a>
+          </li>
+            <li class="slds-tabs_default__item" title="my_course" role="presentation" onclick={selectedTab} data-id="my_course">
+            <a class="slds-tabs_default__link" href="#my_course" role="tab" tabindex="-1" aria-selected="false"
+              aria-controls="my_course" id="my_course">My course</a>
+          </li>
+          <li class="slds-tabs_default__item" title="Report" role="presentation" onclick={selectedTab} data-id="Report">
+            <a class="slds-tabs_default__link" href="#Report" role="tab" tabindex="-1" aria-selected="false"
+              aria-controls="Report" id="Report-tab">Report</a>
+          </li>
+
+        
+        </ul>
+      </div>
+      <div id="Dashboard" data-id="Dashboard" class="slds-tabs_default__content slds-show" role="tabpanel"
+        aria-labelledby="Dashboard-tab" style="padding:0">
+        <!-- Dashboard Tiles -->
+        <section class="dashboard-tiles">
+          <div class="tile" onclick={selectedTab} data-id="All_Courses">
+            <lightning-icon icon-name="utility:knowledge_base" size="large" class="icon dashbord-icon"></lightning-icon>
+            <div>
+              <h2>All Courses</h2>
+              <template lwc:if={dashboardCountData}>
+                <span>{dashboardCountData.AllCourses}</span>
+              </template>
+            </div>
+          </div>
+          <div class="tile">
+            <lightning-icon icon-name="utility:groups" size="large" class="icon dashbord-icon"></lightning-icon>
+            <div>
+              <h2>Discussion</h2>
+              <span>0</span>
+            </div>
+          </div>
+          <div class="tile">
+            <lightning-icon icon-name="utility:record" size="large" class="icon dashbord-icon"></lightning-icon>
+            <div>
+              <h2>None Graded</h2>
+              <span>0</span>
+            </div>
+          </div>
+          <div class="tile">
+            <lightning-icon icon-name="utility:chat" size="large" class="icon dashbord-icon"></lightning-icon>
+            <div>
+              <h2>Chat</h2>
+              <span>0</span>
+            </div>
+          </div>
+          <div class="tile">
+            <lightning-icon icon-name="utility:event" size="large" class="icon dashbord-icon"></lightning-icon>
+            <div>
+              <h2>Calendar</h2>
+              <span>0</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <div id="All_Courses" data-id="All_Courses" class="slds-tabs_default__content slds-hide" role="tabpanel"
+        aria-labelledby="All_Courses-tab">
+        <div class="my_course_container">
+          <div class="my_course_left_container">
+            <c-lms-internal-course-list oncoursecreate={handleCourseCreated}></c-lms-internal-course-list>
+          </div>
+          <div class="my_course_right_container">
+           
+          </div>
+        </div>
+
+      </div>
+      <div id="Report" data-id="Report" class="slds-tabs_default__content slds-hide" role="tabpanel"
+        aria-labelledby="Report-tab">
+        Item Three Content
+      </div>
+     
+      <div id="mycourse" data-id="my_course" class="slds-tabs_default__content slds-hide" role="tabpanel"
+      aria-labelledby="my_course">
+      My course
+    </div>
+    </div>
+    <div>
+
+    </div>
+
+    <!-- new -->
+
+    <!-- Content Area
+        <main class="content">
+     
+            <section class="my-courses">
+                <div class="section-header">
+                    <h2>My Courses</h2>
+                    <button>Create Course</button>
+                </div>
+                <ul class="course-list">
+                    <li>
+                        <h3>Chemistry</h3>
+                        <p>Start Date: Friday, 22 January 2021</p>
+                    </li>
+                    <li>
+                        <h3>HR Professional</h3>
+                        <p>Start Date: Thursday, 17 December 2020</p>
+                    </li>
+                    <li>
+                        <h3>PoSH (Prevention of Sexual Harassment)</h3>
+                        <p>Start Date: Sunday, 22 December 2019</p>
+                    </li>
+                    <li>
+                        <h3>Digital Marketing</h3>
+                        <p>Start Date: Thursday, 20 September 2018</p>
+                    </li>
+                </ul>
+            </section>
+
+   
+            <section class="chat-room">
+                <h2>Chat Room</h2>
+                <ul class="chat-list">
+                    <li>
+                        <h3>Digital Marketing</h3>
+                        <p>Monday, October 19, 2020 12:20:00 PM</p>
+                    </li>
+                    <li>
+                        <h3>Chat Room to discuss difficulties</h3>
+                        <p>Monday, December 23, 2019 10:20:00 AM</p>
+                    </li>
+                    <li>
+                        <h3>Chat 101 - Jan 2021</h3>
+                        <p>Friday, January 22, 2021 09:25:00 AM</p>
+                    </li>
+                </ul>
+            </section>
+        </main> -->
+  </div>
+
+  <!-- new -->
+  <div if:true={showPopup} class="backdrop">
+    <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup}
+    object-label={objectLabel}></c-lms-record-create-popup>
+</div>
+</template>

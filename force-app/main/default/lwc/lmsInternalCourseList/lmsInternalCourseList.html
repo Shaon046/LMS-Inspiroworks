@@ -1,0 +1,43 @@
+<template>
+  <div class="slds-card card">
+    <div class="course-container">
+      <div class="slds-card__header slds-grid slds-grid_align-spread course-header">
+        <div class="slds-text-heading_small">All Courses</div>
+        <lightning-button label="Create Course" variant="brand" class="create-course-button create-course-btn"
+          onclick={createCourse}></lightning-button>
+      </div>
+      <div class="slds-card__body" style="margin:0">
+        <!-- Spinner -->
+        <template if:true={isLoading}>
+          <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+        </template>
+
+        <template if:false={isLoading}>
+        <ul class="slds-list_vertical slds-list_divided" style="height: 300px; overflow-y: auto;">
+          <template for:each={recordsData} for:item="recordWrapper">
+            <li key={recordWrapper.course.Id}
+              class="slds-grid slds-grid_align-spread slds-p-around_medium slds-align-center course-list">
+              <div class="slds-col slds-size_3-of-12 icon-container course-icon">
+                <template for:each={recordWrapper.files} for:item="file">
+                  <div key={file.Id} onclick={getCurrectFileUrl} data-id={file.Id}
+                    data-item-file={file.LatestPublishedVersionId}>
+                    <img src={file.fileImageUrl} alt={file.Title} class="course-image" width="100" height="70" />
+                  </div>
+                </template>
+              </div>
+              <div class="slds-col slds-size_6-of-12 text-container course-content">
+                <div class="slds-text-heading_small slds-text-link">{recordWrapper.course.Title__c}</div>
+                <div class="slds-text-body_small slds-text-color_weak">{recordWrapper.course.Course_Type__c} &nbsp; &nbsp;
+                  {recordWrapper.course.Credits_Points__c} <span style="font-size: 1.2rem; color: gold;">&#9733;</span> </div>
+              </div>
+              <div class="slds-col slds-size_3-of-12 slds-grid slds-align-end button-container">
+                <button class="custom-slds-button" data-id={recordWrapper.course.Id} onclick={handleEnroll}>Enroll</button>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </template>
+      </div>
+    </div>
+  </div>
+</template>

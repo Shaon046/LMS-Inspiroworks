@@ -1,0 +1,55 @@
+<template>
+  <!-- <div class="main-box"> -->
+    <!-- <lightning-card style="margin-top: 100px;"> -->
+  <div class="slds-box">
+    <lightning-layout multiple-rows="true">
+
+      <lightning-layout-item size="6" large-device-size="6" medium-device-size="6" class="slds-p-around_small">
+        <div style="font-size: 18px;"><b>Cart Items</b></div>
+        </lightning-layout-item>
+
+      <lightning-layout-item size="6" large-device-size="6" medium-device-size="6" class="slds-p-around_small">
+        <div class="cart-container">
+          <div class="cart-icon">
+              <span class="cart-count">{cartItems.TotalCartItems}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cart-svg">
+                  <path d="M7 18c-1.104 0-2 .897-2 2 0 1.104.896 2 2 2 1.103 0 2-.896 2-2 0-1.103-.897-2-2-2zm10 0c-1.104 0-2 .897-2 2 0 1.104.896 2 2 2 1.103 0 2-.896 2-2 0-1.103-.897-2-2-2zM7.938 14l-.919-4h11.007l-1.339 4h-8.749zM22 6H5.335L4.217 2H1v2h2.2l3.797 10H17v-2H7.938l-.368-2h11.269c.805 0 1.387-.5 1.582-1.309l1.442-4.65c.06-.213.093-.442.093-.691C21.956 6 22 6 22 6z" />
+              </svg>
+          </div>
+          <div class="cart-label">Cart</div>
+      </div>
+      
+      
+      </lightning-layout-item>
+      
+
+    </lightning-layout>
+  </div>
+
+    <div class="slds-box">
+    <!-- cart items start -->
+    <lightning-layout multiple-rows="true">
+      <template for:each={cartItems.cartItemsList} for:item="item">
+        <lightning-layout-item size="4" class="slds-align_absolute-center" 
+                            padding="around-small" large-device-size="3" key={item.id}>
+          
+          <div class="card-container cart-item-containers" onclick={handleClickCard} data-id={item.Id}>
+            <!-- Image section -->
+            <template if:true={item.imageUrl}>
+              <img src={item.imageUrl} width="500" height="300" />
+            </template>
+            <p>{item.Course_Id__r.Title__c}</p>
+
+            <p><lightning-button label="Remove" onclick={handleRemoveFromCart} variant="brand" data-id={item.Id}>
+              </lightning-button>
+            </p>
+          </div>
+        </lightning-layout-item>
+      </template>
+    </lightning-layout>
+
+    <!-- cart item end-->
+  </div>
+<!-- </div> -->
+<!-- </lightning-card> -->
+</template>

@@ -1,0 +1,62 @@
+.vertical-tabs-container {
+    width: 20%;
+    float: left;
+}
+
+.content-container {
+    margin-left: 25%;
+    padding: 1rem;
+}
+/* Base style for vertical tabs */
+.vertical-tabs-container {
+    width: 100%;
+    float: left;
+    background-color: white; /* Light background for the tab panel */
+    padding: 1rem;
+    border-right: 1px solid  white;;
+}
+
+.slds-nav-vertical__action {
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #333333;
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover state */
+.slds-nav-vertical__action:hover {
+    background-color: #e3eaf3; /* Light blue for hover effect */
+    /* color: #005fbf; Darker blue text on hover */
+}
+
+/* Active (clicked) state */
+.slds-nav-vertical__action.slds-is-active {
+    /* background-color: #005fbf; Blue background for active tab */
+    color: white; /* White text for active tab */
+    /* border-left: 4px solid #004091; Blue left border for active tab */
+}
+
+/* Sub-tabs */
+.slds-nav-vertical__sublist p {
+    padding-left: 1.5rem; /* Indent for sub-tabs */
+    font-size: 0.9rem;
+    color: #555555; /* Lighter text for sub-tabs */
+    text-transform: none; /* Prevent capital letters */
+
+}
+
+/* Sub-tabs hover */
+.slds-nav-vertical__sublist p:hover {
+    /* color: #005fbf; Blue text for sub-tab hover */
+}
+
+/* Sub-tabs active */
+.slds-nav-vertical__sublist p.slds-is-active {
+    font-weight: bold;
+    color: white; /* Blue text for active sub-tab */
+    background-color: #61a6ec; /* Light blue for active sub-tab */
+}

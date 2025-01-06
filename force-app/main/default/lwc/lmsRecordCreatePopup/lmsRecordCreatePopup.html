@@ -1,0 +1,131 @@
+<template>
+  <div class="centered-popup">
+    <div class="popup-content">
+      <div class='exitContainer' onclick={close}> X </div>
+      <div class="overflow">
+        <div class='popupTitle'>New <span>{objectLabel}</span></div>
+        <div class="slds-section slds-is-open header">
+          <h3 class="slds-section__title slds-theme_shade">
+            <span class="slds-truncate slds-p-horizontal_small" title="Section Title">Information</span>
+          </h3>
+        </div>
+        <div class="popupContainer">
+          <div class="popupLeft">
+            <!-- Left Side Fields -->
+            <template for:each={fieldEntries} for:item="field">
+              <template if:true={field.isLeftSide}>
+                <div key={field.label} class="slds-form-element">
+
+                  <div class="slds-form-element__control">
+                    <template if:true={field.isCheckbox}>
+                      <lightning-input type="checkbox" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isPicklist}>
+                      <lightning-combobox data-id={field.apiName} label={field.label} options={field.options}
+                        onchange={handleInputChange}>
+                      </lightning-combobox>
+                    </template>
+
+                    <template if:true={field.isFile}>
+                      <lightning-input type="file" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isText}>
+                      <lightning-input type={field.type} data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isDate}>
+                      <lightning-input type="date" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isDatetimeLocal}>
+                      <lightning-input type="datetime-local" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isNumber}>
+                      <lightning-input type="number" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isSearch}>
+                      <lightning-input type="search" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </template>
+          </div>
+
+          <!-- Right Side Fields -->
+          <div class="popupRight">
+            <template for:each={fieldEntries} for:item="field">
+              <template if:false={field.isLeftSide}>
+                <div key={field.label} class="slds-form-element">
+                  <!-- <label class="slds-form-element__label" for={field.label}>{field.label}</label> -->
+                  <div class="slds-form-element__control">
+
+                    <template if:true={field.isCheckbox}>
+                      <lightning-input type="checkbox" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isPicklist}>
+                      <lightning-combobox data-id={field.apiName} label={field.label} options={field.options}
+                        onchange={handleInputChange}>
+                      </lightning-combobox>
+                    </template>
+
+                    <template if:true={field.isFile}>
+                      <lightning-input type="file" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isText}>
+                      <lightning-input type={field.type} data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isDate}>
+                      <lightning-input type="date" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isDatetimeLocal}>
+                      <lightning-input type="datetime-local" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isNumber}>
+                      <lightning-input type="number" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+
+                    <template if:true={field.isSearch}>
+                      <lightning-input type="search" data-id={field.apiName} label={field.label}
+                        onchange={handleInputChange}></lightning-input>
+                    </template>
+                  </div>
+                </div>
+              </template>
+            </template>
+          </div>
+        </div>
+
+        <!-- fixed div -->
+        <div class="fixedDiv">
+          <lightning-button label="Save" variant="brand" class="create-course-button create-course-btn button"
+            onclick={saveRecord}></lightning-button>
+          <lightning-button label="Cancel" variant="brand" class="create-course-button create-course-btn button"
+            onclick={close}></lightning-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>

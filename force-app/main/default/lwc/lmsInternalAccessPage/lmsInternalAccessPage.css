@@ -1,0 +1,316 @@
+/* General Styles */
+
+
+.dashboard {
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+/* Navbar Styles */
+.navbar {
+    background-color: #078bff;
+}
+.nav-links ul {
+
+    gap: 15px;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-links li a {
+    color: #fff;
+}
+
+.profile-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+    width: fit-content;
+    padding: 4px 8px 4px 14px;
+    border-radius: 4px;
+    box-shadow: 0 2px 11px rgb(200 198 198 / 98%);
+}
+
+.profile {
+    display: flex;
+    padding: 8px 20px;
+    justify-content: flex-end;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    background-color: #4196ff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+.username {
+    color: #4196ff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Dashboard Tiles */
+.dashboard-tiles {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    gap: 10px;
+}
+
+
+.tile {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1;
+    background-color: #efefef;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    color: #0070d2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.tile h2 {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.tile span {
+    font-size: 24px;
+    font-weight: bold;
+    color: #16325c;
+}
+
+/* Content Area */
+.content {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* My Courses Section */
+.my-courses {
+    flex: 2;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.section-header button {
+    background-color: #0070d2;
+    color: #fff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.course-list {
+    list-style: none;
+    padding: 0;
+}
+
+.course-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.course-list h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #0070d2;
+}
+
+.course-list p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Chat Room Section */
+.chat-room {
+    flex: 1;
+}
+
+.chat-list {
+    list-style: none;
+    padding: 0;
+}
+
+.chat-list li {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.chat-list h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #0070d2;
+}
+
+.chat-list p {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #555;
+}
+
+/* Icon Styles */
+.icon {
+    display: block;
+    color: #0070d2;
+    width: 40px;
+    height: 40px;
+    margin: 0px;
+}
+
+.slds-is-active {
+    background-color: #0070d2;
+    text-decoration: none;
+}
+
+.my_course_container {
+    display: flex;
+}
+
+.my_course_left_container {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.my_course_right_container {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.centered-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+   
+}
+
+.popup-content {
+    position: relative;
+    width: 80%;
+    height: 80%;
+     background-color: #fff;
+}
+
+.overflow{
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+}
+
+.exitContainer {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: large;
+    background-color: #ffffff;
+    border-radius: 6px;
+    position: absolute;
+    top: -35px;
+    right: 0px;
+}
+
+.exitContainer:hover {
+    color: #078bff;
+}
+
+.popupContainer {
+    display: flex;
+    flex: 1;
+    height: 100%;
+     padding: 20px 30px; 
+    }
+
+.popupLeft {
+    width: 50%;
+    height: 100%;
+    padding:0 20px;
+}
+
+.popupRight {
+    width: 50%;
+    height: 100%;
+       padding: 0 20px;
+}
+
+.popupTitle {
+    text-align: center;
+    font-size: large;
+    padding: 20px 0;
+    border-bottom: 3px solid gainsboro;
+
+}
+
+.fixedDiv {
+    position: sticky;
+    bottom: 0;
+    height: 10%;
+    width: 100%;
+    background-color: #eeedec99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.button {
+    margin: 0 10px;
+}
+
+.header{
+    margin:10px;
+    padding: 0 10px;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    height: 100vh;
+    width: 100vw; 
+  }

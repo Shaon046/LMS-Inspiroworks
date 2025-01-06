@@ -1,0 +1,35 @@
+<template>
+    <div class="slds-p-around_medium">
+        <div class="vertical-tabs-container">
+            <nav class="slds-nav-vertical slds-nav-vertical_shade">
+                <ul class="slds-nav-vertical__section">
+                    <template for:each={tabs} for:item="tab">
+                        <li key={tab.name} class="slds-nav-vertical__item">
+                            <p 
+                                class={tab.class}
+                                data-name={tab.name} 
+                                style={tab.style}
+                                onclick={handleTabClick}>
+                                {tab.label}
+                            </p>
+                            <template if:true={tab.isExpanded}>
+                                <ul class="slds-nav-vertical__sublist">
+                                    <template for:each={tab.subTabs} for:item="subTab">
+                                        <li key={subTab.name}>
+                                            <p  
+                                                data-name={subTab.name} 
+                                                class={subTab.class} 
+                                                onclick={handleSubTabClick}>
+                                                {subTab.label}
+                                            </p>
+                                        </li>
+                                    </template>
+                                </ul>
+                            </template>
+                        </li>
+                    </template>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</template>
