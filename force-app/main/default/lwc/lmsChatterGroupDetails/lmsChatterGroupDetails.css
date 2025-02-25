@@ -1,0 +1,172 @@
+.group-container {
+	background-color: #ddf6ff;
+	padding: 10px 20px;
+	border-radius: 10px;
+	text-align: center;
+}
+
+.group-header {
+	padding-bottom: 15px;
+}
+
+.header-line {
+	background-color: #959494;
+	margin: 4px 0;
+}
+
+.group-header h2 {
+	font-size: 1.6rem;
+	color: #007bff;
+	font-weight: 700;
+}
+
+p {
+	font-size: 15px;
+}
+
+.group-purpose {
+	padding: 8px 0px 15px;
+}
+
+.group-purpose h3,
+.members-header h3 {
+	font-size: 1.2rem;
+	color: #007bff;
+	font-weight: 700;
+}
+
+.group-purpose ul {
+	list-style-type: disc;
+	padding-left: 20px;
+	list-style-position: inside;
+
+}
+
+.group-purpose li {
+	font-size: 15px;
+}
+
+.group-purpose li::marker {
+	font-size: 1.5em;
+}
+
+.members-section {
+	background: white;
+	border-radius: 8px;
+	padding: .5rem;
+	margin-top: 1rem;
+}
+
+
+
+.members-header h3 {
+	flex-grow: 1;
+	text-align: center;
+}
+
+.search-container {
+	flex-shrink: 0;
+}
+
+.members-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	gap: 10px;
+	height: 150px;
+	overflow-y: auto;
+	padding: 10px;
+}
+
+.member-item {
+	display: flex;
+	align-items: center;
+	margin-bottom: 1.2rem;
+}
+
+.member-avatar {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
+	border: 1px solid rgb(69, 155, 253);
+}
+
+.custom-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #00000038;
+	z-index: 999;
+}
+
+.custom-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	max-width: 900px;
+	height: auto;
+	max-height: 500px;
+	background: white;
+	border-radius: 10px;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.custom-modal-content {
+	overflow: auto;
+	    padding: 0 20px 20px;
+}
+
+.custom-close-button {
+	position: absolute;
+	top: 10px;
+	right: 20px;
+	background: white;
+	border-radius: 50%;
+	padding: 5px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal-header{
+	height: 4rem;
+	padding-bottom: 15px;
+}
+
+@media (max-width: 768px) {
+	.custom-modal {
+		width: 95%;
+		height: 90%;
+	}
+
+	.custom-close-button {
+		top: 10px;
+		right: 10px;
+	}
+	.custom-modal-header{
+		height: 5rem;
+	}
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #ddf6ff;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #dfdfdf;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #008fd7;
+}

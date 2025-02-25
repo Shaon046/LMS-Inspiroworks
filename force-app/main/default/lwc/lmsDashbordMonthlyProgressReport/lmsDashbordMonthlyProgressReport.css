@@ -1,0 +1,12 @@
+.chart-container {
+    display: grid;
+    justify-content: center;
+    height: auto;
+    padding: 0 12px;
+    padding-bottom: 5px;
+}
+
+canvas{
+    height: 208px !important;
+    width: 465px !important;
+}

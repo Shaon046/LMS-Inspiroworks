@@ -1,6 +1,8 @@
 import { LightningElement, track, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import fetchConfigurationStyles from '@salesforce/apex/lmsCoursesTabController.fetchAvailableCoursesWithFiles';
+import USER_ID from '@salesforce/user/Id';
+import getUserProfileType from '@salesforce/apex/LMSCoursesTabController.getUserProfileType';
+import fetchConfigurationStyles from '@salesforce/apex/LMSCoursesTabController.fetchAvailableCoursesWithFiles';
 
 export default class LmsApplicationsTabs extends NavigationMixin(LightningElement) {
     @track activeTab;
@@ -8,9 +10,10 @@ export default class LmsApplicationsTabs extends NavigationMixin(LightningElemen
     @track lmsConfigurations;
     @track dynamicTabsStyle = '';
     @track activeNavCss = '';
-    @track tabsLoaded = false; 
+    @track tabsLoaded = false;
+    @track userProfile = '';
 
-    @track tabs = [
+    allTabs = [
         {
             name: 'Dashboard',
             label: 'Dashboard',
@@ -28,7 +31,7 @@ export default class LmsApplicationsTabs extends NavigationMixin(LightningElemen
             name: 'Courses',
             label: 'Courses',
             class: 'slds-nav-vertical__action',
-            url: '/s/mycourse',
+            url: '/s/allcourses',
             isExpanded: false,
             subTabs: [
                 { name: 'MyCourse', label: 'My Course', content: 'Your enrolled courses.', class: 'slds-nav-vertical__action', url: '/s/mycourse' },
@@ -59,12 +62,70 @@ export default class LmsApplicationsTabs extends NavigationMixin(LightningElemen
             class: 'slds-nav-vertical__action',
             url: '/s/faqs'
         },
+        {
+            name: 'Chatter Group',
+            label: 'Chatter Group',
+            class: 'slds-nav-vertical__action',
+            url: '/s/chatter'
+        },
     ];
 
+    @track tabs = [];
+
+    isAdmin = false;
+    isLearner = false;
+
     connectedCallback() {
+        getUserProfileType()
+            .then((profile) => {
+                console.log('Check current user login check @@@@@@', profile.isAdmin, profile.isLearner);
+                if (profile.isAdmin) {
+                    this.isAdmin = true;
+                }
+                if (profile.isLearner) {
+                    this.isLearner = true;
+                }
+                this.filterTabsBasedOnProfile();
+                this.initializeTabs();
+            })
+            .catch((error) => {
+                console.error('Error fetching user profile:', error);
+            });
+    }
+
+
+    filterTabsBasedOnProfile() {
+        const adminTabs = ['Dashboard', 'Profile', 'Courses', 'Chatter Group'];
+        const learnerTabs = ['Dashboard', 'Profile', 'Courses', 'Certificates', 'Reports', 'Survey', 'FAQs'];
+
+        if (this.isAdmin) {
+            this.tabs = this.allTabs.map(tab => {
+                if (tab.name === 'Courses') {
+                    return { ...tab, subTabs: [] };
+                }
+                return tab;
+            }).filter(tab => adminTabs.includes(tab.name));
+        } else if (this.isLearner) {
+            this.tabs = this.allTabs.map(tab => {
+                if (tab.name === 'Courses') {
+                    return {
+                        ...tab,
+                        subTabs: tab.subTabs.filter(subTab => ['MyCourse', 'Quiz'].includes(subTab.name))
+                    };
+                }
+                return tab;
+            }).filter(tab => learnerTabs.includes(tab.name));
+        } else {
+            this.tabs = [];
+        }
+
+        this.tabsLoaded = true;
+    }
+
+
+    initializeTabs() {
         const urlParams = new URL(window.location.href).searchParams;
         const activeTabParam = urlParams.get('activeTab');
-        console.log('activeTabParam@@@@', activeTabParam);
 
         if (activeTabParam) {
             this.activeTab = activeTabParam;
@@ -115,9 +176,7 @@ export default class LmsApplicationsTabs extends NavigationMixin(LightningElemen
                 this.updateTabStyles(tabName);
             }
 
-            // Navigate to the tab URL with the activeTab parameter
             this.navigateToUrl(selectedTab.url, tabName);
-
             this.activeContent = selectedTab.content || '';
         }
     }
@@ -179,10 +238,11 @@ export default class LmsApplicationsTabs extends NavigationMixin(LightningElemen
     }
 
     navigateToUrl(url, activeTab) {
+        const separator = url.includes('?') ? '&' : '?';
         this[NavigationMixin.Navigate]({
             type: 'standard__webPage',
             attributes: {
-                url: `${url}?activeTab=${activeTab}`
+                url: `${url}${separator}activeTab=${activeTab}`
             }
         });
     }

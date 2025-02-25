@@ -1,0 +1,13 @@
+<template>
+    <lightning-card title="chatter">
+        <lightning-layout multiple-rows="true">
+            <template for:each={data} for:item="item">
+                <lightning-layout-item size="12" large-device-size="6" key={item.id}>
+                    <div>
+                        <img src={item.FullPhotoUrl} style="width:100%;height:100%" />
+                    </div>
+                    </lightning-layout-item>
+                    </template>
+        </lightning-layout>
+    </lightning-card>
+</template>

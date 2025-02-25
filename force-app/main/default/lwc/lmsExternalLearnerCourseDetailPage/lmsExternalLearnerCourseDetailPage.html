@@ -1,0 +1,182 @@
+<template>
+    <template if:false={isShowDetailPage}>
+
+        <div class="main-card">
+            <div class="slds-grid slds-wrap slds-gutters" style="    margin-top: -38px;">
+                <!-- Right Section: Videos -->
+                <div class="slds-col slds-size_2-of-3 slds-p-around_medium videos-section">
+                    <div class="slds-box slds-theme_default" style="min-height: 535px;">
+                        <template if:false={isRegistered}>
+                            <div>
+                                <h2 class="slds-text-heading_medium text-center text-blue">
+                                    <img src={fileImageUrl} class="course-image" width="65" height="75" alt="Image" />
+                                    <b class="ml-1">{courseName}</b>
+                                </h2>
+                            </div>
+
+                            <div class="course-detais-container">
+                                <h3 class="course-detais">
+                                    Credits Required: {creditPoint}
+
+                                </h3>
+                                <h3 class="course-detais">Course Modules: {totalCourseModules}</h3>
+                            </div>
+                            <h4 class="slds-text-heading_medium text-center text-blue">
+                                <b>About the Course</b>
+                            </h4>
+                        </template>
+
+                        <div class="video-container course-description">
+                            <template if:true={isVideoAvailable}>
+                                <iframe src={selectedVideoUrl} title="Example Video" width="100%" height="450"
+                                    frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                                </iframe>
+                                <!-- <div class="h5p-container">
+                                <iframe src={h5pUrl} width="1088" height="637"
+                                    frameborder="0" allowfullscreen aria-label="H5P Content" class="h5p-iframe">
+                                </iframe>
+                            </div> -->
+
+                            </template>
+                            <template if:true={isQuizAvailable}>
+                                <p class="text-center text-gray">Take a quiz to test your knowledge!</p>
+                                <c-lms-my-course-quize get-course-module-id={courseModuleId}
+                                    onrefreshnodule={handleMessage} onretakequiz={handleRetakeQuiz}>
+                                </c-lms-my-course-quize>
+                            </template>
+                            <template if:true={ifretake}>
+                                <c-lms-my-course-quize get-course-module-id={courseModuleId}
+                                    onrefreshnodule={handleMessage} is-retake-found={isRetakeAvailble}>
+                                </c-lms-my-course-quize>
+                            </template>
+                            <template if:false={isQuizVideoNotAvailable}>
+
+                                <p class="text-center text-gray" style="padding: 10%;">
+                                    <img src={fileImageUrl} class="course-image" width="280" height="200"
+                                        alt="Course Image" />
+                                </p>
+                            </template>
+                            <template if:true={allModulesCompleted}>
+                                <template if:false={ifretake}>
+                                    <div style="padding : 10%">
+                                        <span style="word-wrap: break-word;">This certificate is presented to [Name] in
+                                            recognition of their exceptional performance and outstanding achievements in
+                                            [Field/Industry] on [Date].
+                                            Your hard work, dedication,
+                                            and perseverance have been instrumental in your success, and we are honored
+                                            to recognize your accomplishments.</span>
+                                    </div>
+                                </template>
+                            </template>
+                        </div>
+
+
+                        <template if:false={isRegistered}>
+                            <p class="text-center">
+                                {description}
+                            </p>
+                        </template>
+
+                        <template if:true={isEnrolled}>
+                            <template if:true={isShowModal}>
+                                <div style="width : 100%; display : flex; justify-content: center; margin-top : 85px">
+                                    <button class="btn" onclick={handleEnrolled}>Enroll</button>
+                                </div>
+                            </template>
+                        </template>
+                        <!-- <<<<-------new code ------ -->
+                         <template if:true={isRegistered}>
+                        <c-lms-qa-and-resources module-id = {parentModuleId} course-name={courseName} course-record-id={courseRecordId}></c-lms-qa-and-resources>
+                    </template>
+                    </div>
+
+                </div>
+
+
+                <!-- Left Section: Modules -->
+                <div class="slds-col slds-size_1-of-3 slds-p-around_medium modules-section">
+                    <div class="slds-box slds-theme_default" style="height: 535px; overflow-y: scroll;">
+                        <div class="btn-container">
+                            <h2 class="slds-text-heading_medium slds-text-align_center module-title">Course Modules</h2>
+                        </div>
+                        <ul>
+                            <template for:each={courseModulesData} for:item="group">
+                                <li key={group.unitGroupId} class="module-group unit-block">
+                                    <div class="unit-header slds-grid slds-grid_align-spread slds-grid_vertical">
+                                        <div class="slds-grid slds-grid_vertical-align-start slds-grid_wrap">
+                                            <span class="slds-text-title_bold text-wrap">{group.unitDescription}</span>
+                                            <button class="slds-button slds-button_icon icon"
+                                                onclick={handleGroupToggle} data-group-id={group.unitGroupId}
+                                                aria-label="Toggle Module Group" disabled={isEnrolled}>
+                                                <svg class="slds-button__icon" xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24" width="16" height="16">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd" d={group.iconPath}
+                                                        fill="#000">
+                                                    </path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Module List -->
+                                    <template if:true={group.isExpanded}>
+                                        <div class="course-module">
+                                            <ul class="slds-m-left_large module-list module-description">
+                                                <span>Status: <b>{group.overallStatus}</b></span>
+                                                <template for:each={group.modules} for:item="module">
+                                                    <li key={module.Id} class="module-item">
+                                                        <label>
+                                                            <input type="checkbox" class="slds-checkbox"
+                                                                onchange={handleCheckboxChange}
+                                                                data-module-id={module.Id} checked={module.isChecked}
+                                                                disabled />
+                                                            <span class="ml-1">
+                                                                <p class="clickable-text" onclick={getChangeVideoUrl}
+                                                                    data-module-id={module.Id}>
+                                                                    {module.Course_Module_Name__c}
+                                                                </p>
+                                                            </span>
+                                                        </label>
+
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </template>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <!-- Pop up for cart items -->
+            <!-- here start  -->
+
+
+        </div>
+    </template>
+    <template if:true={isShowDetailPage}>
+        <template if:true={isLoader}>
+            <div class="demo-only">
+                <div class="slds-spinner_container ">
+                    <div role="status" class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                        <span class="slds-assistive-text">Loading</span>
+                        <div class="slds-spinner__dot-a"></div>
+                        <div class="slds-spinner__dot-b"></div>
+                    </div>
+
+                </div>
+            </div>
+        </template>
+        <c-lms-external-learner-course-detail-page course-record-id={courseRecordId}>
+        </c-lms-external-learner-course-detail-page>
+        <!-- <c-lms-dummy-detail-page course-record-id={courseRecordId}></c-lms-dummy-detail-page> -->
+
+
+    </template>
+</template>

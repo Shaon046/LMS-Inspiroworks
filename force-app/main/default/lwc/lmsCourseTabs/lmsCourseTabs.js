@@ -1,7 +1,10 @@
 import { LightningElement, wire, track } from 'lwc';
-import fetchAvailableCoursesWithFiles from '@salesforce/apex/lmsCoursesTabController.fetchAvailableCoursesWithFiles';
+import fetchAvailableCoursesWithFiles from '@salesforce/apex/LMSCoursesTabController.fetchAvailableCoursesWithFiles';
 import { publish, MessageContext } from 'lightning/messageService';
 import COUNTING_UPDATED_CHANNEL from '@salesforce/messageChannel/Cart_Item__c';
+import createLMSCourseEnrolment from '@salesforce/apex/LMSCourseEnrollementController.createLMSCourseEnrolment';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+
 
 export default class LmsCourseTabs extends LightningElement {
     @track recordsData;
@@ -125,5 +128,46 @@ export default class LmsCourseTabs extends LightningElement {
         publish(this.MessageContext, COUNTING_UPDATED_CHANNEL, payload);
     }
 
+    handleBuy(){
+        console.log('handleBuy called');
+        const seletedId = this.seletedCourseId;
+        console.log('Selected Id130 in parent===>' + JSON.stringify(seletedId));
 
+        createLMSCourseEnrolment({ courseId: seletedId })
+        .then(result=>{
+            console.log('result===>'+JSON.stringify(result));
+            if(result != 'Succes'){
+                this.errorToast(result);
+                this.isShowModal = false;
+            }
+            else{
+                this.successToast('You have successfully enrolled in the course.');
+            }
+        })
+        .catch(error=>{
+            console.log('error===>'+JSON.stringify(error));
+        })
+    }
+
+
+    errorToast(title) {
+        const toastEvent = new ShowToastEvent({
+            title,
+            variant: "error",
+            mode: "dismissable",
+
+        })
+
+        this.dispatchEvent(toastEvent)
+    }
+
+    successToast(title) {
+        const toastEvent = new ShowToastEvent({
+            title,
+            variant: "success",
+            mode: "dismissable",
+        })
+
+        this.dispatchEvent(toastEvent)
+    }
 }

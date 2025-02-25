@@ -82,10 +82,10 @@ public Without Sharing class LMSCourseDetailPageController {
     }
     
     @AuraEnabled
-    public static Boolean removeItemFromCart(string cartItemId){
+    public static Boolean removeItemFromCart(List<string> cartItemId){
         system.debug('cartItemId54==>'+cartItemId);
         List<Cart_Item__c> cartItemList = new List<Cart_Item__c>();
-        List<Cart_Item__c> ciList = [SELECT Id,Name,cart_Id__c,Course_Id__c,Course_Id__r.Course_Type__c,Course_Id__r.Title__c FROM Cart_Item__c WHERE Id =:cartitemId LIMIT 1];
+        List<Cart_Item__c> ciList = [SELECT Id,Name,cart_Id__c,Course_Id__c,Course_Id__r.Course_Type__c,Course_Id__r.Title__c FROM Cart_Item__c WHERE Id IN:cartitemId];
         system.debug('ciList57==>'+ciList);
         
         if(!ciList.isEmpty()){

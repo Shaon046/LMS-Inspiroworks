@@ -1,0 +1,11 @@
+canvas{
+    height: 300px !important;
+    width: 650px !important;
+	/* width: 450px; */
+}
+
+.learner-report-container{
+    background-color: #ffffff;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}

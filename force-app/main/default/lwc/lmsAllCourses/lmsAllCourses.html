@@ -1,0 +1,189 @@
+<template>
+    <div class="all-courses">
+        <template if:true={isAllCoursesPage}>
+            <header class="header">
+                <h1>All Courses</h1>
+                <div class="search-bar">
+                    <!-- Input with Search Icon -->
+                    <div class="search-input-container">
+                        <span class="search-icon">
+                        <svg fill="#0000FF" stroke="#0000FF" stroke-width="2" width="18" height="18" 
+                            viewBox="0 0 64 64" version="1.1" xml:space="preserve" class="search-icon">
+                            <path d="M27 4C14.85 4 5 13.85 5 26s9.85 22 22 22c5.42 0 10.37-1.89 14.3-5.03l14.37 14.37c0.39 0.39 0.9 0.58 1.41 0.58s1.02-0.19 1.41-0.58c0.78-0.78 0.78-2.05 0-2.83L43.3 40.14C47.11 36.23 49 31.22 49 26 49 13.85 39.15 4 27 4zM27 44c-9.94 0-18-8.06-18-18s8.06-18 18-18 18 8.06 18 18-8.06 18-18 18z" />
+                        </svg>
+                    </span>
+                        <input type="text" placeholder="Search Course" class="search-input" onkeyup={handleSearch} />
+                    </div>
+
+                    <!-- Select with Search Icon -->
+                    <div class="search-input-container">
+                        <span class="search-icon">
+                         <svg fill="#0000FF" stroke="#0000FF" stroke-width="2" width="18" height="18" 
+                            viewBox="0 0 64 64" version="1.1" xml:space="preserve" class="search-icon">
+                            <path d="M27 4C14.85 4 5 13.85 5 26s9.85 22 22 22c5.42 0 10.37-1.89 14.3-5.03l14.37 14.37c0.39 0.39 0.9 0.58 1.41 0.58s1.02-0.19 1.41-0.58c0.78-0.78 0.78-2.05 0-2.83L43.3 40.14C47.11 36.23 49 31.22 49 26 49 13.85 39.15 4 27 4zM27 44c-9.94 0-18-8.06-18-18s8.06-18 18-18 18 8.06 18 18-8.06 18-18 18z" />
+                        </svg>
+                    </span>
+                        <select class="filter-select" onchange={filterCourses}>
+                        <option value=""  selected disabled hidden>Search Course Type</option>
+                        <option value="" >All Courses</option>
+                        <option value="Ondemand">On Demand</option>
+                        <option value="Virtual">Virtual</option>
+                    </select>
+                    </div>
+                </div>
+                <div>
+                    <template lwc:if={isAdmin}>
+                        <button class="create-course-btn"  onclick={createCourse}>Create Course</button>
+                    </template>
+                </div>
+                <!-- <template lwc:else>
+                <button class="enroll-course-btn"  data-enroll="Enroll">Enroll</button>
+            </template> -->
+
+            </header>
+            <ul class="slds-list_vertical slds-list_divided courses-list" style="">
+                <template for:each={filteredData} for:item="recordWrapper">
+                    <li key={recordWrapper.course.Id}>
+
+                        <div class="course-card slds-box slds-box_x-small slds-m-around_medium slds-align_absolute-center"
+                            data-id={recordWrapper.course.Id} data-item-name={recordWrapper.course.Title__c}
+                            data-item-type={recordWrapper.course.Course_Type__c}>
+                            <div class="course-content">
+                                <div class="icon-section">
+                                    <template for:each={recordWrapper.files} for:item="file">
+                                        <div key={file.Id} onclick={getCurrectFileUrl} data-id={file.Id}
+                                            data-item-file={file.LatestPublishedVersionId}>
+                                            <img src={file.fileImageUrl} alt={file.Title} class="course-image" width="100" height="70" />
+                                        </div>
+                                    </template>
+                                </div>
+                                <div class="details-section">
+                                    <p class="course-title">{recordWrapper.course.Title__c}</p>
+                                    <div class="details">
+                                        <div class="detail-item">
+                                            <svg fill="#0000FF" stroke="#0000FF" stroke-width="2" width="20px"
+                                                height="20px" viewBox="0 0 64 64" version="1.1" xml:space="preserve"
+                                                class="resource-icon">
+                                                <path
+                                                    d="M32,2C15.43,2,2,15.43,2,32s13.43,30,30,30s30-13.43,30-30S48.57,2,32,2z M32,58C17.663,58,6,46.337,6,32 S17.663,6,32,6s26,11.663,26,26S46.337,58,32,58z" />
+                                                <path d="M33,8h-2v26h17v-2H33V8z" />
+                                            </svg>
+
+
+                                            <span class="couese-details">{recordWrapper.course.Course_Duration__c} hours</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <svg fill="none" stroke="#FFA500" stroke-width="3" width="30px"
+                                                height="30px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+
+                                                <circle cx="32" cy="32" r="20" fill="none" troke="#FFA500"
+                                                    stroke-width="3" />
+                                                <path
+                                                    d="M20,24 h8 c1.5,0 2,2 2,2 v12 c0,2 -0.5,2 -2,2 h-8 c-1.5,0 -2,-2 -2,-2 v-12 c0,-2 0.5,-2 2,-2 z"
+                                                    fill="white" />
+                                                <path
+                                                    d="M36,24 h8 c1.5,0 2,2 2,2 v12 c0,2 -0.5,2 -2,2 h-8 c-1.5,0 -2,-2 -2,-2 v-12 c0,-2 0.5,-2 2,-2 z"
+                                                    fill="white" />
+                                                <path d="M32,24 v16" fill="none" stroke="#ffffff" stroke-width="2" />
+                                            </svg>
+
+                                            <span class="couese-details">{recordWrapper.courseModuleCount} sessions</span>
+                                        </div>
+                                        <div class="detail-item">
+                                            <svg fill="#0000FF" stroke="#0000FF" stroke-width="2" width="20px"
+                                                height="20px" viewBox="0 0 64 64" version="1.1" xml:space="preserve"
+                                                class="resource-icon">
+                                                <path
+                                                    d="M54,10H10c-3.313,0-6,2.687-6,6v32c0,3.313,2.687,6,6,6h44c3.313,0,6-2.687,6-6V16C60,12.687,57.313,10,54,10z M58,48 c0,2.206-1.794,4-4,4H10c-2.206,0-4-1.794-4-4V28h52V48z M58,26H6v-6c0-2.206,1.794-4,4-4h44c2.206,0,4,1.794,4,4V26z" />
+                                                <path d="M18,36h14v2H18V36z" />
+                                            </svg>
+                                            <span class="couese-details">{recordWrapper.course.Credits_Points__c} credits</span>
+                                            <!-- <span style="font-size: 1.2rem; color: gold;">&#9733;</span> -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="view-course">
+                                    <template lwc:if={isAdmin}>
+                                        <button class="custom-slds-button" data-id={recordWrapper.course.Id} onclick={selectedCourse}>View Course</button>
+
+                                    </template>
+                                    <template lwc:elseif={isLearner}>
+                                        <template if:false={recordWrapper.isEnroll}>
+                                            <button class="custom-slds-button" data-id={recordWrapper.course.Id} onclick={handleSelectedCourse}>View Course</button>
+
+                                        </template>
+                                        <template if:true={recordWrapper.isEnroll}>
+                                            <button class="custom-slds-button" data-id={recordWrapper.course.Id} disabled >Allready Registered</button>
+
+                                        </template>
+                                    </template>
+
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </template>
+            </ul>
+        </template>
+        <!-- here added by prash  start-->
+    </div>
+    <div style="background-color: #ddf6ff;     width: 100%">
+        <template if:true={isCourseDetailsPage}>
+            <h2 style="font-size: 24px;   color: #024d8e;   font-weight: 600; margin-top: -30px;">&nbsp;&nbsp; Course Detail Page</h2>
+            <c-lms-external-admin-my-course-page course-record-id={getCourseId}></c-lms-external-admin-my-course-page>
+        </template>
+
+
+        <template if:true={isExternalCourseDetailpage}>
+            <p style="font-size: 24px;   color: #024d8e;   font-weight: 600;     margin-top: -30px;"> &nbsp;&nbsp;Course Detail Page</p>
+            <c-lms-external-learner-course-detail-page course-record-id={selectedCourseId}>
+            </c-lms-external-learner-course-detail-page>
+        </template>
+    </div>
+
+    <!-- end here -->
+
+    <!-- Pop up for cart items -->
+     <!--
+    <template if:true={isShowModal}>
+        <div class="cartItemPopup">
+            <button class="close-button" onclick={hideModalBox}>×</button>
+            <lightning-layout multiple-rows="true">
+                <lightning-layout-item size="12" large-device-size="6" medium-device-size="12">
+                    <p style="font-size: 17px;"><b> Course Image</b></p>
+                    <div class="tile">
+                        <img src={fileImageUrls} />
+
+
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" large-device-size="6" medium-device-size="12">
+                    <p style="font-size: 17px;"><b> Course Details</b></p>
+                    <p style="word-wrap:break-word;"><b> Course Name:{seletedCourseName} </b></p>
+                    <p style="word-wrap:break-word;"><b> Course Type:{seletedCourseType} </b></p>
+                </lightning-layout-item>
+
+            </lightning-layout>
+
+            <div style="margin-left: 0rem; margin-right: 15rem;position: sticky; top: 0; width:190px;">
+
+            </div>
+            <br>
+            <div style="display:flex;">
+
+                <lightning-button label="Add to cart" onclick={handleCart} disabled={isDisabled}
+                    class="slds-p-around_small" style="margin-top: 1px; width: 32%; margin-left:80px;padding-left:50px;"
+                    variant="brand">
+                </lightning-button>
+
+                <lightning-button label="Add to Buy" onclick={handleBuy} disabled={isDisabled}
+                    class="slds-p-around_small" variant="brand"
+                    style="margin-top: 1px; width: 32%;margin-left:35px;padding-left:50px;">
+                </lightning-button>
+            </div>
+        </div>
+        </div>
+        <div class="modal-backdrop" onclick={hideModalBox}></div>
+    </template>
+    end -->
+</template>

@@ -1,6 +1,6 @@
 <template>
     <!-- <lightning-card> -->
-    <div class="slds-grid slds-wrap slds-p-around_medium" style="margin-left : -4%">
+    <div class="slds-grid slds-wrap " >
         <!-- Left Column: Available Courses -->
         <!-- Right Column: Blank Column for Other Components -->
         <!-- <div class="slds-col slds-size_1-of-4"> -->
@@ -8,14 +8,14 @@
                 <!-- <c-lms-applications-tabs></c-lms-applications-tabs> -->
             <!-- </div> -->
         <!-- </div> -->
-        <div class="slds-col slds-size_4-of-4 slds-p-right_medium">
-            <p class="slds-m-left_medium"><b>My Credits: 100</b></p>
-            <div
+        <div class="slds-col slds-size_4-of-4 ">
+            <!-- <p class="slds-m-left_medium"><b>My Credits: 100</b></p> -->
+            <!-- <div
                 class="slds-float_right slds-grid slds-grid_align-end slds-grid_vertical-align-center slds-m-around_x-small alignDropDownBox">
                 <lightning-combobox name="progress" label="" value={value} placeholder="Select View" options={options}
                     onchange={handleViewChange}>
                 </lightning-combobox>
-            </div>
+            </div> -->
 
             <template lwc:if={isViewBoolean}>
                 <template if:true={recordsData}>
@@ -56,7 +56,7 @@
                 </template>
             </template>
             <template lwc:else>
-                <template if:true={recordsData}>
+                <!-- <template if:true={recordsData}>
                     <div class="slds-p-around_medium">
                         <ul class="slds-has-dividers_around-space">
                             <template for:each={recordsData} for:item="recordWrapper">
@@ -90,7 +90,8 @@
                             </template>
                         </ul>
                     </div>
-                </template>
+                </template> -->
+            <c-lms-my-courses></c-lms-my-courses>
             </template>
         </div>
 
@@ -144,8 +145,8 @@
         <div class="modal-backdrop" onclick={hideModalBox}></div>
     </template>
     <!-- end -->
- <div class="hideAddToCart">
+ <!-- <div class="hideAddToCart">
                 <c-lms-course-detail-page></c-lms-course-detail-page>
-            </div>
+            </div> -->
 
 </template>

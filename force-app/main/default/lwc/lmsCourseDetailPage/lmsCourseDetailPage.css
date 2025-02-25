@@ -71,8 +71,8 @@
 
 .cart-count {
     position: absolute;
-    top: -8px;
-    font-size: 12px;
+    top: -22px;
+    font-size: 30px;
     font-weight: bold;
     color: orangered;
     text-align: center;
@@ -127,4 +127,8 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for a raised effect */
     text-align: center; /* Center align the text inside */
     font-family: Arial, sans-serif; /* Default font for the text */ 
+}
+
+.cart-svg {
+    transform: scale(2); /* Doubles the size */
 }

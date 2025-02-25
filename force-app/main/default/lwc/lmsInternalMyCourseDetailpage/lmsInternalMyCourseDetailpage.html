@@ -1,0 +1,170 @@
+<template>
+    <div class="main-card">
+        <div style="display:flex">
+            <!-- Right Section: Videos -->
+            <div class="slds-col slds-size_2-of-3 slds-p-around_medium videos-section">
+                <div class="slds-box slds-theme_default">
+
+                    <div>
+                        <h2 class="slds-text-heading_medium text-center text-blue">
+                            <img
+                            src={fileImageUrl}
+                            class="course-image"
+                            width="65"
+                            height="75"
+                            alt="Course Image"
+                        />
+                            <b class="ml-1">{courseName}</b>
+                        </h2>
+                    </div>
+
+                    <div class="course-detais-container">
+                        <h3 class="course-detais">
+                            Credits Required: {creditPoint}
+
+                        </h3>
+                        <h3 class="course-detais">Course Modules: {totalCourseModules}</h3>
+                    </div>
+                    <h4 class="slds-text-heading_medium text-center text-blue">
+                        <b>About the Course</b>
+                    </h4>
+
+                    <div class="video-container course-description">
+                        <template if:true={isVideoAvailable}>
+                            <iframe src={selectedVideoUrl} title="Example Video" width="65%" height="280"
+                                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen>
+                            </iframe>
+                        </template>
+                        <template if:true={isQuizAvailable}>
+                            <p class="text-center text-gray">Take a quiz to test your knowledge!</p>
+                            <c-lms-my-course-quize get-course-module-id={courseModuleId}
+                                is-coming-admin-view-page={isAdminPageBooleanDisabledSubmit}></c-lms-my-course-quize>
+                        </template>
+                        <template if:false={isQuizVideoNotAvailable}>
+                            <!-- <p class="text-center text-gray" style="padding: 10%;"></p> -->
+                            <img
+                            src={fileImageUrl}
+                            class="course-image"
+                            width="280"
+                            height="200"
+                            alt="Course Image"
+                        />
+                        </template>
+                    </div>
+
+                    <div class="course-description-header text-center">
+                        <!-- <span class="text-blue"><b>Course Description</b></span> -->
+                    </div>
+                    <p class="text-center">
+                        {description}
+                    </p>
+                </div>
+            </div>
+
+
+            <!-- Left Section: Modules -->
+            <div class="slds-col slds-size_1-of-3 slds-p-around_medium modules-section ">
+                <div class="slds-box slds-theme_default" style="height: 100%; width: 100%;">
+                    <!--header -->
+                    <!-- <div class="btn-container">
+                        <h2 class="slds-text-heading_medium slds-text-align_center module-title">Course Modules</h2>
+                        <button class="btn"  onclick={handleCourseModuleCreated}>Create Course Module</button>
+                    </div> -->
+
+                    <div class="btn-container">
+                        <h2 class="slds-text-heading_medium slds-text-align_center module-title">Course Modules</h2>
+                        <button class="btn" onclick={handleCourseModule}>Create Course Module</button>
+                    </div>
+
+
+
+
+
+
+                    <div class="course-module-container">
+                        <ul>
+                            <template for:each={courseModulesData} for:item="group">
+                                <li key={group.unitGroupId} class="module-group unit-block">
+                                    <div class="unit-header slds-grid slds-grid_align-spread">
+                                        <span><b>{group.unitDescription}</b></span>
+                                        <button
+                                        class="slds-button slds-button_icon slds-m-right_x-small icon"
+                                        onclick={handleGroupToggle}
+                                        data-group-id={group.unitGroupId}
+                                        aria-label="Toggle Module Group"
+                                    >
+                                        <svg
+                                            class="slds-button__icon"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            width="16"
+                                            height="16"
+                                        >
+                                            <path 
+                                                fill-rule="evenodd" 
+                                                clip-rule="evenodd" 
+                                                d={group.iconPath} 
+                                                fill="#000">
+                                            </path>
+                                        </svg>
+                                    </button>
+                                    </div>
+
+                                    <!-- Module List -->
+                                    <template if:true={group.isExpanded}>
+                                        <div class="course-module">
+                                            <ul class="slds-m-left_large module-list module-description">
+                                                <span>Status: <b>{group.overallStatus}</b></span>
+                                                <template for:each={group.modules} for:item="module">
+                                                    <li key={module.Id} class="module-item">
+                                                        <label>
+                                                        <input
+                                                            type="checkbox"
+                                                            class="slds-checkbox"
+                                                            onchange={handleCheckboxChange}
+                                                            data-module-id={module.Id}
+                                                            checked={module.isChecked}
+                                                            disabled 
+                                                        />
+                                                        <span class="ml-1">
+                                                             <p class="clickable-text" onclick={getChangeVideoUrl}
+                                                                    data-module-id={module.Id}>
+                                                                    {module.Name}
+                                                                </p>
+                                                        </span>
+                                                    </label>
+
+                                                    </li>
+                                                </template>
+                                            </ul>
+                                        </div>
+                                    </template>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div if:true={isFlowVisible} class="backdrop">
+        <!-- <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup}
+    object-label={objectLabel} object-name={objectName} custom-metadata-name={customMetadataName} record-id = {courseRecordId} parent-component={parentComponent} onrecordsaved={afterRecordSave} ></c-lms-record-create-popup> -->
+
+        <!-- <div class="flow-wrapper">
+    <div onclick={exitPopup} class='exitbtn'>X</div>
+    <lightning-flow flow-api-name="Create_Course_Module" 
+                 onstatuschange={handleFlowStatusChange}
+                 flow-input-variables={inputVariables}>
+                 
+</lightning-flow> -->
+
+        <c-lms-create-course-module-pop-up oncloserecordcreatepopup={exitPopup} onrecordsaved={afterRecordSave}
+            record-id={courseRecordId}></c-lms-create-course-module-pop-up>
+
+    </div>
+
+    
+</template>

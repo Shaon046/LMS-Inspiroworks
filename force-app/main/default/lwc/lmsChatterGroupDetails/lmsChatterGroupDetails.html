@@ -1,0 +1,50 @@
+<template>
+    <div class="custom-backdrop" if:true={isOpen}></div>
+
+    <section if:true={isOpen} class="custom-modal">
+        <div class="custom-modal-header">
+            <button class="slds-button slds-button_icon slds-modal__close custom-close-button" title="Close" onclick={handleClose}>
+                <lightning-icon icon-name="utility:close" alternative-text="Close" size="small"></lightning-icon>
+            </button>
+        </div>
+        <div class="custom-modal-content">
+        <div class="slds-box slds-theme_shade slds-p-around_medium slds-text-align_center group-container">
+            <div class="group-header">
+                <h2 class="slds-text-heading_large slds-text-color_brand slds-m-bottom_small">Group Details</h2>
+                <hr class="slds-border_bottom header-line" />
+                <p class="slds-text-body_regular">{groupDetails.groupDescription}</p>
+            </div>
+<!-- 
+            <div class="group-purpose slds-m-top_medium">
+                <h3 class="slds-text-heading_medium slds-text-color_brand">Group Purpose</h3>
+                <ul class="slds-list_dotted slds-m-left_medium">
+                    <li>Share course updates, announcements, and important information.</li>
+                    <li>Collaborate with peers and instructors on assignments and projects.</li>
+                    <li>Discuss course topics, share resources, and seek assistance.</li>
+                    <li>Stay informed about upcoming learning events, webinars, and deadlines.</li>
+                </ul>
+            </div> -->
+
+            <!-- <div class="members-section slds-box slds-theme_default slds-m-top_large slds-p-around_medium">
+                <div class="members-header slds-m-bottom_small">
+                    <h3 class="slds-text-heading_medium slds-text-color_brand">Members</h3>
+                    <hr class="slds-border_bottom header-line" />
+                </div>
+                <div class="members-grid slds-grid slds-wrap slds-grid_align-spread slds-scrollable_y"
+                    style="max-height: 400px;">
+                    <template for:each={membersDetails} for:item="member">
+                        <div key={member.name} class="slds-media slds-m-bottom_medium member-item">
+                            <div class="slds-media__figure">
+                                <img src={member.profileUrl} alt={member.name} class="slds-avatar slds-avatar_circle slds-avatar_medium member-avatar"/>
+                            </div>
+                            <div class="slds-media__body">
+                                <p class="slds-text-body_regular">{member.name}</p>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div> -->
+        </div>
+        </div>
+    </section>
+</template>

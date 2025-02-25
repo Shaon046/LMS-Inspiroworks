@@ -1,0 +1,20 @@
+<template>
+ <!-- <lightning-card> -->
+    <div class="slds-grid slds-wrap " >
+        <!-- Left Column: Available Courses -->
+        <!-- Right Column: Blank Column for Other Components -->
+        <div class="slds-col slds-size_1-of-4" style="width:18%">
+            <!-- <div class="slds-p-around_medium"> -->
+                <c-lms-applications-tabs></c-lms-applications-tabs>
+            <!-- </div> -->
+
+        </div>
+        <div class="slds-col slds-size_3-of-4 "  style="width:82%">
+            <c-lms-all-courses oncoursecreate={handleCourseCreated} data-child ongetcourseid={getSelectedCourseId} is-refresh-course={isRefreshCourse}></c-lms-all-courses>
+        </div>
+    </div>
+    <div if:true={showPopup} class="backdrop">
+    <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup} object-label={objectLabel} object-name={objectName}
+      custom-metadata-name={customMetadataName} has-attachment={hasAttachment} onrecordsaved={recordSaved}></c-lms-record-create-popup>
+  </div>
+</template>

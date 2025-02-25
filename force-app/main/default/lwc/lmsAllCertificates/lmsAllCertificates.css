@@ -1,0 +1,140 @@
+.body{
+
+height: 100vh;
+min-height: 80vh;
+}
+
+.header{
+	font-size: 24px;
+	color: #024d8e;
+	font-weight: 600;
+	padding: 20px;
+	
+}
+
+.content-container{
+	background-color: #e9f9ff;
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+
+	overflow: scroll;
+	
+}
+
+.pdf-container {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+background-color: white;
+	border: 1px solid #2c94bb;
+	box-shadow: 0 2px 4px rgb(160, 226, 248);
+	padding: 10px 10px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	
+}
+
+.certification-text-container {
+	display: flex;
+	align-items: center;
+}
+
+.icon {
+	border-radius: 50px;
+	background-color: white;
+	border: 1px solid black;
+	margin-right: 10px;
+	height: 35px;
+	width: 35px;
+	display: flex;
+	justify-content:center ;
+	align-items: center;
+	overflow: hidden;
+}
+
+.text {
+	/* font-size: medium; */
+	font-weight: 600;
+	color: #2c94bb;
+}
+
+.btn {
+	color: white;
+	padding: 6px 25px;
+	background-color: #0273bf;
+	border-radius: 8px;
+	border: none;
+	font-weight: 500;
+}
+
+.iframe-container{
+	display: flex;
+	
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.backButton{
+	background-color: rgb(205, 64, 64);
+	margin-right: 10px;
+}
+
+
+.iframe-container {
+   position: relative;
+  width: 100%;
+  height: 100%; 
+  overflow: hidden;;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  border: none; 
+  display: block; 
+  margin-bottom: 10px;
+}
+.info-text{
+	color:#003e66;
+	font-size: 22px;
+	font-weight: 500;
+	padding: 10px 20px;
+}
+
+.certificate-header-text{
+	color:#4f5050;
+	font-size: 22px;
+	font-weight: 600;
+	padding: 10px 20px;
+}
+
+.vf-header {
+    display: none;
+  }
+  
+  /* Hide the button */
+  .vf-button {
+    display: none;
+  }
+
+  .backdrop-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; 
+}
+
+.loading-text {
+  font-size: 24px;
+  color: white;
+  font-weight: bold;
+}

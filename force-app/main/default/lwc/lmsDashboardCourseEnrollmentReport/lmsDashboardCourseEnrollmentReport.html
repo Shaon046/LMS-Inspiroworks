@@ -1,0 +1,65 @@
+<template>
+    <!-- <div class="card">
+        <div class="slds-grid slds-p-around_medium slds-grid_vertical-align-center">
+              <div class="slds-col slds-size_1-of-2">
+                <span class="header-large">Reports</span>
+            </div>
+          
+         </div> -->
+        <!-- button part end -->
+
+        <div class="slds-p-around_medium">
+            <div style="max-height: 200px; overflow-y: auto;">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                    <thead>
+                        <!-- <tr class="slds-line-height_reset custom-header">
+                            <th scope="col" class="custom-header">
+                               COURSE NAME
+                            </th>
+                            <th scope="col" class="custom-header">
+                               ENROLLED
+                            </th>
+                            <th scope="col" class="custom-header">
+                               IN-PROGRESS
+                            </th>
+                            <th scope="col" class="custom-header">
+                              COMPLETED
+                            </th>
+                        </tr> -->
+                        <tr>
+                            <template for:each={tableHeaders} for:item="header">
+                                <th key={header} scope="col" class="custom-header">{header}</th>
+                            </template>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Iterate over data and display rows -->
+                        <template for:each={enrollmentRecord} for:item="record">
+                            <tr key={record.id}>
+                                <td data-label="COURSE NAME ">
+                                    <div class="slds-cell-wrap">
+                                        {record.courseName}
+                                    </div>
+                                </td>
+                                <td data-label="ENROLLED">
+                                    <div class="slds-cell-wrap">
+                                        {record.enrolledCount}
+                                    </div>
+                                </td>
+
+                                <td data-label="IN-PROGRESS">
+                                    <div class="slds-cell-wrap">
+                                        {record.inProgressCount}
+                                    </div>
+                                </td>
+                               
+                                <td data-label="COMPLETED">
+                                    {record.completedCount}
+                                </td>
+                                </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+</template>

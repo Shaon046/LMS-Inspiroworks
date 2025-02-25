@@ -1,0 +1,18 @@
+<template>
+    <!-- <div style="background-color: #e6f7ff; padding: 20px;"> -->
+    <lightning-layout multiple-rows="true" class="slds-align_absolute-center">
+        <template for:each={dashboardCardData} for:item="data">
+            <lightning-layout-item key={data.label} size="12" large-device-size="3" medium-device-size="6">
+                <div class="custom-box">
+                    <div class="slds-float_left">
+                        <lightning-icon icon-name={data.icon} size="medium" alternative-text={data.label} class="custom-icon">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-text-heading_medium slds-align_absolute-center">{data.count}</div>
+                    <div class="slds-text-title slds-align_absolute-center slds-m-bottom_large">{data.label}</div>
+                </div>
+            </lightning-layout-item>
+        </template>
+    </lightning-layout>
+    <!-- </div> -->
+</template>

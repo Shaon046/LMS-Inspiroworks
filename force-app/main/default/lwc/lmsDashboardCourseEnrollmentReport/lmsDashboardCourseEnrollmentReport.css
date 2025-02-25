@@ -1,0 +1,36 @@
+.custom-header {
+    background-color: #0070D2 !important;
+    color: white !important;
+    padding: 8px 2px;
+}
+thead{
+     position: sticky;
+    top: 0.5px;
+    z-index: 10;
+}
+
+.slds-table tbody tr:nth-child(odd) {
+    background-color: #F1F9FF; /* Light blue background for odd rows */
+}
+
+.slds-table tbody tr:nth-child(even) {
+    background-color: #FFFFFF; /* White background for even rows */
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    background:#ddf6ff ; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #dfdfdf; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #008fd7; 
+}

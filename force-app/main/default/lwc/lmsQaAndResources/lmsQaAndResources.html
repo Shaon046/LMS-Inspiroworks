@@ -1,0 +1,61 @@
+<template>
+  <div class="">
+    <div class="slds-tabs_default slds-tabs_medium">
+      <div class="navbar">
+        <ul class="slds-tabs_default__nav nav-links nav-menu" role="tablist">
+          <li class="slds-tabs_default__item slds-is-active" title="Q/A" role="presentation" onclick={selectedTab}
+            data-id="QA">
+            <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="0" aria-selected="true"
+              aria-controls="QA" id="QA-tab">Q/A</a>
+          </li>
+          <li class="slds-tabs_default__item" title="Resources" role="presentation" onclick={selectedTab}
+            data-id="Resources">
+            <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1" aria-selected="false"
+              aria-controls="Resources" id="Resources-tab">Resources</a>
+          </li>
+          <template if:true={showCertificateTab}>
+            <li class="slds-tabs_default__item" title="Certification" role="presentation" onclick={selectedTab}
+              data-id="Certification">
+              <a class="slds-tabs_default__link" href="javascript:void(0);" role="tab" tabindex="-1"
+                aria-selected="false" aria-controls="Certification" id="Certification-tab">Certification</a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div id="QA" data-id="QA" class="slds-tabs_default__content slds-show" role="tabpanel" aria-labelledby="QA-tab">
+        <!-- <div class="slds-p-around_medium"> -->
+        <!--  parent-id={0F9fJ0000004ZlZSAU} chat-group-name={chatGroupName}> -->
+
+        <template if:true={ischatterGroupIdReady}>
+
+          <c-lms-learner-qa parent-id={parentId}></c-lms-learner-qa>
+        </template>
+        <!-- </div> -->
+      </div>
+
+      <div id="Resources" data-id="Resources" class="slds-tabs_default__content slds-hide resources" role="tabpanel"
+        aria-labelledby="Resources-tab">
+        <div class="slds-p-around_medium">
+          <template for:each={resourceList} for:item="obj">
+            <div class="resource-container" key={obj.fileName}>
+              <a class="resource-text" id="myLink" href={obj.contentVersionUrl}>{obj.fileName}</a>
+            </div>
+          </template>
+        </div>
+      </div>
+
+
+      
+      <div id="Certification" data-id="Certification" class="slds-tabs_default__content slds-hide" role="tabpanel"
+        aria-labelledby="Certification-tab">
+        <div class="slds-p-around_medium">
+          <c-lms-certificate-tab course-name={courseName} enrolled-course-details={enrolledCourseDetails} course-image={courseImage} course-record-id={courseRecordId}>
+          </c-lms-certificate-tab>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</template>

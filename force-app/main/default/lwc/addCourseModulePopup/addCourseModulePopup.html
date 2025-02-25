@@ -1,0 +1,7 @@
+<template>
+    <button onclick={handleCourseModuleCreated}>Add Course Module</button>
+<div if:true={showPopup} class="backdrop">
+    <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup}
+    object-label={objectLabel} object-name={objectName} custom-metadata-name={customMetadataName} record-id = {recordId} parent-component={parentComponent} ></c-lms-record-create-popup>
+</div>
+</template>

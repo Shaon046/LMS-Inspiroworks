@@ -1,0 +1,51 @@
+<template>
+    <section if:true={isDataReady} class="custom-modal">
+        <div class="custom-modal-content">
+            <div class="chat-section slds-box slds-theme_default slds-m-top_large slds-p-around_medium">
+                <div class="chat-grid slds-scrollable_y">
+                    <template for:each={groupChats} for:item="group">
+                        <div key={group.date} class="message-date">
+                            <p>{group.date}</p>
+                        </div>
+
+                        <template for:each={group.messages} for:item="msg">
+                            <div key={msg.feedItemId} class={msg.alignClass} data-id={msg.feedItemId}>
+                                <div class={msg.msgWrapperCss}>
+                                    <img src={msg.profileImg} class="profile-pic" alt="Profile Picture" />
+                                    <div class={msg.msgCss}>
+                                        <template lwc:if={msg.replayOf}>
+                                            <div class={msg.tagMessageCss} data-id={msg.replayOfId} onclick={getOrgMsg}>
+                                                <p>{msg.replayOf}</p>
+                                            </div>
+                                        </template>
+
+                                        <div class="message">
+                                            <div class="message-section">
+                                                <p class="message-body">{msg.msg}</p>
+                                            </div>
+                                            <template lwc:if={msg.msgAuthor}>
+                                                <p class="message-author">{msg.msgAuthor}</p>
+                                            </template>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <template lwc:if={msg.msgTime}>
+                                <p class={msg.timingCss}>{msg.msgTime} </p>
+                                 </template>
+                            </div>
+                        </template>
+                    </template>
+                </div>
+                <div class="chat-footer">
+                    <input class="message-input" value={newMessage} onchange={handleMessageChange} data-id = {parentId}
+                        placeholder="Type a message..."></input>
+                    <button class="send-button" onclick={sendMessage} title="Send" >
+                        <svg viewBox="0 0 24 24" fill="white" class="send-icon">
+                            <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</template>

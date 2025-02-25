@@ -1,0 +1,126 @@
+<template>
+    <div class="admin-chat-box">
+        <header class="header">
+            <div class="group-name-warpper">
+            <button class="custom-button">
+               <lightning-icon icon-name="utility:back" size="small" class="icon" onclick={toggleBackToGroups}></lightning-icon>
+            </button>
+            <h1 class="chat-group-name">{chatGroupName}</h1>
+            </div>
+            <div class="button-wrapper">
+                <div class="search-input-container">
+                    <span class="search-icon">
+                        <svg fill="#0000FF" stroke="#0000FF" stroke-width="2" width="18" height="18" 
+                            viewBox="0 0 64 64" version="1.1" xml:space="preserve" class="search-icon">
+                            <path d="M27 4C14.85 4 5 13.85 5 26s9.85 22 22 22c5.42 0 10.37-1.89 14.3-5.03l14.37 14.37c0.39 0.39 0.9 0.58 1.41 0.58s1.02-0.19 1.41-0.58c0.78-0.78 0.78-2.05 0-2.83L43.3 40.14C47.11 36.23 49 31.22 49 26 49 13.85 39.15 4 27 4zM27 44c-9.94 0-18-8.06-18-18s8.06-18 18-18 18 8.06 18 18-8.06 18-18 18z" />
+                        </svg>
+                    </span>
+                    <input type="text" placeholder="Search by chatter" class="search-input" onkeyup={handleSearch} value={searchText}/>
+                    <span class="crose-icon" onclick={clearSearchBox}>
+                        <svg width="10" height="10" fill="#0000FF" stroke="#0000FF" stroke-width="2" viewBox="0 0 28 28" >
+                            <path d="M2.32129 2.32363C2.72582 1.9191 3.38168 1.9191 3.78621 2.32363L25.6966 24.234C26.1011 24.6385 26.1011 25.2944 25.6966 25.6989C25.2921 26.1035 24.6362 26.1035 24.2317 25.6989L2.32129 3.78854C1.91676 3.38402 1.91676 2.72815 2.32129 2.32363Z" fill="black"></path>
+                            <path d="M25.6787 2.30339C25.2742 1.89887 24.6183 1.89887 24.2138 2.30339L2.30339 24.2138C1.89887 24.6183 1.89887 25.2742 2.30339 25.6787C2.70792 26.0832 3.36379 26.0832 3.76831 25.6787L25.6787 3.76831C26.0832 3.36379 26.0832 2.70792 25.6787 2.30339Z" fill="black"></path>
+                        </svg>
+                    </span>
+                </div>
+
+                
+
+
+                <button class="custom-button" onclick={refreshChat}>
+                    <lightning-icon icon-name="utility:refresh" size="small" class="icon"></lightning-icon>
+                </button>
+            </div>
+        </header>
+        <div class={cssAsPerUserType}>
+
+            <template for:each={filteredChats} for:item="chat">
+                <div key={chat.feedItemId} class="chat-container">
+                    <div class="chat-header">
+                        <img src={chat.authorProfilePictureUrl} class="profile-pic" alt="Profile Picture" />
+                        <div class="chat-info">
+                            <span class="author-name">{chat.postAuthor}</span>
+                            <span class="chat-time">{chat.postDate}</span>
+                        </div>
+                    </div>
+
+                    <div class="chat-content">
+                        <p>{chat.body}</p>
+                    </div>
+                    <template if:true={chat.isExpanded}>
+                        <div class={chat.contentStyle}>
+                            <template for:each={chat.comments} for:item="comment">
+                                <div key={comment.feedCommentId} class="comment-wraper">
+
+                                    <div class="comment">
+                                        <img src={comment.commentAuthPictureUrl} class="profile-pic" alt="Profile Picture"/>
+                                        <div class="comment-content">
+                                            <span class="comment-author">{comment.commentAuthor}</span>
+                                            <span class="chat-time">{comment.commentDate}</span>
+                                        </div>
+                                    </div>
+                                    <div class="comment-content">
+                                        <p>{comment.commentBody}</p>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+
+                    <template if:false={chat.showReplyBox}>
+                        <div class="reply-toggle">
+                            <template if:false={chat.isExpanded}>
+                                <a class="expand-chat" data-id={chat.feedItemId} onclick={toggleExpandChat}>Expand
+                                    chat</a>
+                            </template>
+                            <template if:true={chat.isExpanded}>
+                                <a class="enclose-chat" data-id={chat.feedItemId} onclick={toggleExpandChat}>Collapse
+                                    Chat</a>
+                            </template>
+
+
+                            <button class="reply-button" data-id={chat.feedItemId} onclick={toggleReplyBox}>Reply</button>
+                        </div>
+
+                    </template>
+
+
+                    <template if:true={chat.showReplyBox}>
+                        <div class="reply-container">
+                            <div class="reply-header">
+                                <div class="comment-header">
+                                    <img src={userProfilePicUrl} class="profile-pic" alt="Profile Picture" />
+                                    <div class="chat-info">
+                                        <span class="author-name">{userName}</span>
+                                    </div>
+                                </div>
+                                <button class="close-reply" data-id={chat.feedItemId} onclick={toggleReplyBox}>✖</button>
+                            </div>
+
+                            <div class="reply-box">
+
+                                <textarea class="custom-textarea" data-id={chat.feedItemId} placeholder="Write your reply here..."  value={chat.replyText} onchange={handleReplyChange}>
+                                    </textarea>
+
+                                <div class="reply-actions">
+                                    <lightning-button label="Comment" variant="brand" data-id={chat.feedItemId}
+                                        onclick={submitReply}>
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </template>
+        </div>
+        <div class="chat-footer">
+            <input class="message-input" onchange={handleNewMsgChange} value={newMessageText}
+                        placeholder="Type a message..."></input>
+            <button class="send-button" onclick={submitNewMessage} title="Send" data-id={chatGroupId}>
+                <svg viewBox="0 0 24 24" fill="white" class="send-icon">
+                    <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</template>

@@ -1,35 +1,20 @@
 <template>
     <div class="body_container" style={communityHeaderStyle}>
-        <div class="navbar">
-            <div class="slds-grid menu">
+        <!-- <div class="navbar"> -->
+            <div class="slds-grid menu slds-align_absolute-center">
+                <!-- Logo Image -->
                 <div class="slds-col slds-size_3-of-12 logo">
-                    <img src={fileImageUrls} width="35%">
+                    <img src={fileImageUrls} width="18%">
                 </div>
-                <div class="slds-col inputsearch slds-size_3-of-12">
-                    <input class="search" type="text" placeholder="Search" >
-                </div>
-                <div class="slds-col slds-size_3-of-12">
-                    <template if:false={isDitrictLeader}>
-                        <!-- <ul>
-                            <li data-name="learn/available-courses" onclick={handleClick}>Learn</li>
-                            <li data-name="excel/feedback-rounds" onclick={handleClick}>Monitor</li>
-                        </ul> -->
-                    </template>
-                </div>
-                <div class="slds-col slds-size_3-of-12 nav_right_side">
-                    <div class="slds-grid align-horizontal">
-
-                        <div class="slds-col" style="margin-left: 10px; margin-top: 11px;">
-                            <!-- <span class="logged_in_username" onclick={handleLogoutClick}>{contactDetails.contactFirstName}</span> -->
-                        </div>
-                        <div class="slds-col" style="margin-left: 10px;margin-top: 8px;">
-                            <!-- <a onclick={handleLogout} class="logout_button">Logout</a> -->
-                        </div>
+                
+                <!-- Profile Container -->
+                <div class="slds-col slds-size_6-of-12 slds-grid slds-align_absolute-center" style="margin-left: 25%;">
+                    <div class="profile-text" style="margin-right: 10px;">
+                        <div class="profile-name">{username}</div>
                     </div>
+                    <!-- <img class="profile-image" src={fileImageUrls} alt="Profile Image" width="35%"> -->
                 </div>
-
             </div>
-            <img style="height: auto; width: 49px; border-radius: 50%; margin-left: 95%;  margin-top: -9%;" src={fileImageUrls} >
-        </div>
+        <!-- </div> -->
     </div>
 </template>

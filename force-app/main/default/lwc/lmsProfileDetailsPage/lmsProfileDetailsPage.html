@@ -1,0 +1,95 @@
+<template>
+    <div class="slds-card">
+        <div class="slds-card__header slds-grid slds-grid_vertical-align-center">
+            <h2 class="slds-text-heading_medium">Welcome to your Personal Profile Page!</h2>
+            <p>Review and update your personal information to keep your records accurate.</p>
+        </div>
+
+        <div class="slds-card__body slds-p-horizontal_medium">
+            <div class="slds-grid slds-wrap slds-gutters">
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="firstName" class="slds-form-element__label required">First Name</label>
+                    <input type="text" id="firstName" class="slds-input" placeholder="Enter First Name" />
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="lastName" class="slds-form-element__label required">Last Name</label>
+                    <input type="text" id="lastName" class="slds-input" placeholder="Enter Last Name" />
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="email" class="slds-form-element__label required">Email</label>
+                    <input type="email" id="email" class="slds-input" placeholder="Enter Email" />
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="username" class="slds-form-element__label">Username</label>
+                    <input type="text" id="username" class="slds-input" placeholder="Username" disabled />
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="role" class="slds-form-element__label required">Role</label>
+                    <select id="role" class="slds-select">
+                        <option value="Learner">Learner</option>
+                        <option value="Teacher">Teacher</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="slds-col slds-size_1-of-2">
+                    <label for="contactNo" class="slds-form-element__label required">Contact No.</label>
+                    <div class="slds-form-element__control">
+                        <div class="slds-input-has-fixed-addon">
+                            <span class="slds-form-element__addon">+91</span>
+                            <input type="tel" id="contactNo" class="slds-input" placeholder="Enter Contact Number" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                    <label class="slds-checkbox">
+                        <input type="checkbox" id="resetPassword" />
+                        <span class="slds-checkbox__label">
+                            <span class="slds-form-element__label">Reset Password</span>
+                        </span>
+                    </label>
+                </div>
+
+                <div class="slds-col slds-size_1-of-1">
+                    <label class="slds-checkbox">
+                        <input type="checkbox" id="requestChange" />
+                        <span class="slds-checkbox__label">
+                            <span class="slds-form-element__label">Request a change here</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="slds-m-top_medium">
+                <label>Upload Profile Picture:</label>
+                <p>Add a professional image to personalize your profile. (Accepted formats: JPEG, PNG. Max size: 5MB.)</p>
+
+                <div
+                    class="slds-box slds-box_x-small slds-drag-container slds-text-align_center"
+                    ondragover={handleDragOver}
+                    ondrop={handleDrop}
+                    ondragleave={handleDragLeave}
+                >
+                    <p if:true={isDragging}>Drop your file here...</p>
+                    <p if:false={isDragging}>Drag a file here or click below to upload.</p>
+                </div>
+
+                <lightning-button label="Upload File" variant="brand" onclick={openFileDialog}></lightning-button>
+                <input type="file" accept="image/jpeg, image/png" class="file-input" onchange={handleFileChange} />
+
+                <template if:true={fileName}>
+                    <p>Uploaded File: <strong>{fileName}</strong></p>
+                </template>
+            </div>
+        </div>
+
+        <div class="slds-card__footer slds-text-align_center">
+            <lightning-button label="Save" variant="brand"></lightning-button>
+        </div>
+    </div>
+</template>

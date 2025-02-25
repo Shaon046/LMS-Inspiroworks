@@ -1,0 +1,166 @@
+.custom-backdrop {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #00000038;
+	z-index: 999;
+}
+
+.custom-modal {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	max-width: 900px;
+	height: auto;
+	max-height: 500px;
+	background: white;
+	border-radius: 10px;
+	z-index: 1000;
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background-color: #ddf6ff;
+}
+
+
+.custom-modal-header {
+	height: 3.2rem;
+	padding: 10px 10px 0;
+	display: flex;
+}
+
+.group-header {
+
+	flex-grow: 1;
+	text-align: center;
+}
+
+.group-header h2 {
+	font-size: 1.6rem;
+	color: #007bff;
+	font-weight: 700;
+}
+
+.custom-close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	background: white;
+	border-radius: 50%;
+	padding: 5px;
+	box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.custom-modal-content {
+	overflow: auto;
+	padding: 0 10px 10px;
+}
+
+.chat-section {
+	background: white;
+	border-radius: 8px;
+	padding: .5rem;
+	margin-top: 0px;
+}
+
+
+
+.chat-grid {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	padding: 10px;
+	max-height: 330px;
+}
+
+.message-box {
+	max-width: 50%;
+	padding: 10px;
+	border-radius: 10px;
+	word-wrap: break-word;
+	margin: 5px;
+}
+
+.message-right {
+	align-self: flex-end;
+	background: #007bff;
+	color: white;
+}
+
+.message-left {
+	align-self: flex-start;
+	background: #f1f0f0;
+	color: black;
+}
+
+.chat-footer {
+	display: flex;
+	padding: 10px;
+	background: white;
+	border-top: 1px solid #ccc;
+}
+
+.message-input {
+	flex-grow: 1;
+	margin-right: 5px;
+	border: 1px solid black;
+	border-radius: 8px;
+	padding: 5px;
+}
+
+.send-button {
+	background-color: #007bff;
+	border: none;
+	border-radius: 50%;
+	width: 35px;
+	height: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding-left: 8px;
+	transition: background 0.3s;
+}
+
+.send-button:hover {
+	background-color: #0056b3;
+}
+
+.send-icon {
+	width: 24px;
+	height: 24px;
+	fill: white;
+}
+
+.message-author {
+	font-size: 11px;
+	text-align: end;
+	font-style: italic;
+	padding-top: 5px;
+}
+
+.message-body {
+	font-size: 14px;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #ddf6ff;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #dfdfdf;
+	border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: #008fd7;
+}

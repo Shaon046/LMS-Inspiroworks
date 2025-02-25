@@ -1,0 +1,155 @@
+<template>
+    <div class="slds-grid slds-wrap slds-m-around_medium profile-page-wrapper">
+        <!-- Left: Form Section -->
+        <div class="slds-size_1-of-1 slds-large-size_2-of-3 slds-p-horizontal_medium  profile-container">
+            <p class="slds-text-body_regular slds-m-bottom_medium">
+                Welcome to your Personal Profile Page! Here, you can review and update your personal information to
+                ensure your records are accurate and up to date. This page allows you to manage your contact
+                details, professional experience, and other relevant information to enhance your interaction with
+                the community.
+            </p>
+
+            <div class="slds-grid slds-gutters slds-wrap">
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-form-element slds-m-bottom_medium" >
+                        <label class="slds-form-element__label custom-label" for="first-name"><span class="star-icon">*</span> First Name</label>
+                        <div class="slds-form-element__control" >
+                            <input type="text" id="first-name" class="slds-input" placeholder="Enter first name"   value={userDetails.firstName} data-id="firstName" onkeyup={handleInputChange} readonly={isReadOnly}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label custom-label" for="email"><span class="star-icon">*</span> Email</label>
+                        <div class="slds-form-element__control">
+                            <input type="email" id="email" class="slds-input" placeholder="Enter email "  value={userDetails.email} data-id="email" onkeyup={handleInputChange} readonly={isReadOnly}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label custom-label" for="contact-number"><span class="star-icon">*</span> Contact No.</label>
+                        <div class="slds-form-element__control slds-input-has-prefix">
+                            <input type="tel" id="contact-number" class="slds-input" placeholder="Enter Contact no"  value={userDetails.mobilePhone} data-id="mobilePhone" onkeyup={handleInputChange} readonly={isReadOnly}/>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="slds-col slds-size_1-of-1 slds-medium-size_1-of-2">
+                    <div class="slds-form-element slds-m-bottom_medium">
+                        <label class="slds-form-element__label custom-label" for="last-name"><span class="star-icon">*</span> Last Name</label>
+                        <div class="slds-form-element__control">
+                            <input type="text" id="last-name" class="slds-input" placeholder="Enter last name"  value={userDetails.lastName} data-id="lastName" onkeyup={handleInputChange} readonly={isReadOnly}/>
+                        </div>
+                    </div>
+                    <div class="slds-form-element">
+                        <label class="slds-form-element__label custom-label" for="username">Username</label>
+                        <div class="slds-form-element__control slds-input-has-icon slds-input-has-icon_right">
+                            <lightning-icon size="x-small"
+                                class="slds-icon slds-input__icon slds-input__icon_right slds-icon-text-default"
+                                icon-name="utility:lock"></lightning-icon>
+                            <input type="text" id="username" class="slds-input " value={userDetails.userName}  readonly disabled/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slds-grid slds-grid_align-end slds-m-top_medium btn-wrapper" >
+                <button class="slds-button slds-button_outline-brand custom-button" onclick={toggleResetPassword}>Reset Password</button>
+                <button class="slds-button slds-button_brand custom-button" style="padding: 0Px 30px" if:false={isEdit} onclick={handelEditToggle} data-id={userDetails.userId}>Edit</button>
+                <div class="slds-grid btn-wrapper" if:true={isEdit}>
+                    <button class="slds-button slds-button_brand custom-button" style="padding: 0Px 30px" onclick={handelEditToggle}>Cancel</button>
+                    <button class="slds-button slds-button_brand custom-button" style="padding: 0Px 30px" data-id={userDetails.userId} onclick={saveChanges} disabled={isValueUnchanged}>Save</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Profile Picture Section -->
+        <div class="slds-size_1-of-1 slds-large-size_1-of-3  profile-picture-section">
+            <div class="slds-align_absolute-center">
+                <img src={uploadedImage} alt="Profile Picture" class="profile-picture" width="150" height="150"/>
+            </div>
+            <p class="slds-m-top_small">
+                Upload Profile Picture: Add a professional image to personalize your profile.
+                Accepted formats: JPEG, PNG. 
+                Max size: 2MB.
+            </p>
+
+            <div class="slds-grid slds-grid_vertical slds-align_absolute-center slds-m-top_medium upload-section">
+                <button class="slds-button slds-button_outline-brand custom-button" onclick={triggerFileInput} style="padding: 2px 16px">
+                    <lightning-icon icon-name="utility:upload" alternative-text="Upload" size="small" class="slds-m-right_small"></lightning-icon> &nbsp;Upload File
+                </button>
+                <input type="file" accept=".jpeg,.jpg,.png" onchange={handleFileChange} style="display:none" />
+
+                <span class="slds-text-body_small slds-m-top_small">OR</span>
+
+              
+                <div class="drop-zone slds-box slds-box_x-small slds-m-top_small slds-text-align_center"
+                    style="border: 2px dashed #0070d2;" ondragover={handleDragOver} ondragleave={handleDragLeave}
+                    ondrop={handleFileDrop}>
+                    Drag & Drop File Here
+                </div>
+            </div>
+
+            <button class="slds-button slds-button_success slds-m-top_medium custom-button" onclick={handleSaveProfileImage} data-id={userDetails.userId} disabled={isImageSaveDisable}>Save</button>
+        </div>
+    </div>
+
+    <!-- //password change popup  -->
+
+    <template if:true={enableResetPassword}>
+        <div class="popup-overlay">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2>Change Password</h2>
+                    <button class="close-btn" onclick={toggleResetPassword}>&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        Passwords must be at least 8 characters long. Use a combination of numbers,
+                        symbols, and upper- and lowercase letters in random order.
+                    </p>
+                    <!-- <div class="pasword-group">
+                        <lightning-input placeholder="Enter Password" label="Current Password"
+                            type={passInputTypes.currentPassword} value={pass} onchange={handlePassInput}
+                            data-id="currentPasswordVal" required="true" class="pass-input"></lightning-input>
+                        <button class="visibility-icon-toggle" onclick={handleTogglePassVisibility} data-id="currentPassword" title={toggleIconTitles.currentPassword}>
+                            <lightning-icon icon-name={toggleIcons.currentPassword} size="x-small" alternative-text={toggleIconTitles.currentPassword}></lightning-icon>
+                        </button>
+                        <a href="#" class="forgot-password">Forgot Password?</a>
+                    </div> -->
+
+                    <div class="pasword-group">
+                        <lightning-input placeholder="Enter Password" label="New Password"
+                            type={passInputTypes.newPassword} value={pass} onkeyup={handlePassInput}
+                            data-id="newPasswordVal" class="pass-input" minlength="8" required></lightning-input>
+                        <button class="visibility-icon-toggle" onclick={handleTogglePassVisibility} data-id="newPassword" title={toggleIconTitles.newPassword}>
+                            <lightning-icon icon-name={toggleIcons.newPassword} size="x-small" alternative-text={toggleIconTitles.newPassword}></lightning-icon>
+                        </button>
+                    </div>
+
+                    <div class="pasword-group">
+                        <lightning-input placeholder="Enter Password" label="Confirm Password"
+                            type={passInputTypes.confirmPassword} value={pass} onkeyup={handlePassInput}
+                            data-id="confirmPasswordVal" class="pass-input"></lightning-input>
+                        <button class="visibility-icon-toggle" onclick={handleTogglePassVisibility} data-id="confirmPassword" title={toggleIconTitles.confirmPassword}>
+                            <lightning-icon icon-name={toggleIcons.confirmPassword} size="x-small" alternative-text={toggleIconTitles.confirmPassword}></lightning-icon>
+                        </button>
+                    </div>
+                    <div class="error-message" if:true={isPasswordMismatch}>{errorMessage} </div>
+
+                    <div class="form-group btn">
+                        <button class="submit-btn" onclick={saveChangePassword} disabled={isPasswordMismatch}>Submit New Password</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={isLoading}>
+        <div class="backdrop">
+            <div class="slds-spinner slds-spinner_medium slds-spinner_brand">
+                <span class="slds-assistive-text">Loading...</span>
+            </div>
+        </div>
+    </template>
+
+</template>

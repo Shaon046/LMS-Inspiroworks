@@ -1,0 +1,83 @@
+<template>
+    <div class="body">
+        <header class="calendar-header">
+            <span onclick={previousMonthHandler}>
+                <lightning-icon icon-name="utility:chevronleft" alternative-text="Previous Month" size="medium"></lightning-icon>
+            </span>
+
+            <div>
+                <span >{currentMonthString} </span>
+                <span>{currentYear} </span>
+            </div>
+
+            <span onclick={nextMonthHandler}>
+                <lightning-icon icon-name="utility:chevronright" alternative-text="Next Month" size="medium"></lightning-icon>
+            </span>
+        </header>
+
+        <div class="calendar">
+            <ul class="weeks">
+                <li>Sun</li>
+                <li>Mon</li>
+                <li>Tue</li>
+                <li>Wed</li>
+                <li>Thu</li>
+                <li>Fri</li>
+                <li>Sat</li>
+            </ul>
+
+            <ul class="days">
+                <template for:each={dates} for:item="date">
+                    <template lwc:if={date.isActiveMonth}>
+                        <template lwc:if={date.isCurrentDate}>
+                            <li key={date.day} class='current-date' data-id={date.events} onmouseover={showEvent}
+                                onmouseleave={removeEventInfo}>
+                                {date.day}
+                                <template if:true={date.events}>
+                                    <div class="event-mark"></div>
+                                </template>
+                            </li>
+                        </template>
+                        <template lwc:else>
+                            <li key={date.day} onmouseover={showEvent} data-id={date.events}
+                                onmouseleave={removeEventInfo}>
+                                {date.day}
+                                <template if:true={date.events}>
+                                    <div class="event-mark"></div>
+                                </template>
+                            </li>
+                        </template>
+                    </template>
+                    <template lwc:else>
+                        <li key={date.day} class="inactive" onmouseover={showEvent} data-id={date.events}
+                            onmouseleave={removeEventInfo}>
+                            {date.day}
+                            <template if:true={date.events}>
+                                <div class="event-mark"></div>
+                            </template>
+                        </li>
+                    </template>
+                </template>
+            </ul>
+
+
+
+            <!-- Event details -->
+            <div if:true={showEventDetails} class="event-details" style={eventStyle}>
+                <template for:each={modifiedCourseName} for:item="obj">
+                    <div key={obj} class="event-name-container">
+                        <div>
+                            <lightning-icon icon-name="utility:knowledge_base" alternative-text="knowledge_base"
+                                size="small"></lightning-icon>
+                            <span class="event-name">{obj}</span>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+
+
+
+        </div>
+    </div>
+</template>

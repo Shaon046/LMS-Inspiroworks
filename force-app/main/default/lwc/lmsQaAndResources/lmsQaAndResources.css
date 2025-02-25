@@ -1,0 +1,89 @@
+.custom-container {
+	color: black;
+}
+
+.resources{
+	max-height: 265px;
+	overflow-y: scroll;
+
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+
+.resource-container {
+	width: 100%;
+	border: 1px solid #2c94bb;
+	box-shadow: 0 2px 4px rgb(160, 226, 248);
+	padding: 10px 10px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	;
+
+}
+
+.resource-text {
+	color: #2c94bb;
+	text-decoration: none;
+	font-weight: 600;
+
+}
+
+
+.pdf-container {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	justify-content: space-between;
+
+	border: 1px solid #2c94bb;
+	box-shadow: 0 2px 4px rgb(160, 226, 248);
+	padding: 10px 10px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+	;
+}
+
+.certification-text-container {
+	display: flex;
+	align-items: center;
+}
+
+.icon {
+	border-radius: 50px;
+	background-color: white;
+	border: 1px solid black;
+	margin-right: 10px;
+	height: 35px;
+	width: 35px;
+	display: flex;
+	justify-content:center ;
+	align-items: center;
+	overflow: hidden;
+}
+
+.text {
+	/* font-size: medium; */
+	font-weight: 600;
+	color: #2c94bb;
+}
+
+.btn {
+	color: white;
+	padding: 6px 25px;
+	background-color: #0273bf;
+	border-radius: 8px;
+	border: none;
+	font-weight: 500;
+}

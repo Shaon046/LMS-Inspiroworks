@@ -1,0 +1,140 @@
+<template>
+    <div class="centered-popup">
+        <div class="popup-content">
+            <div class='exitContainer' onclick={close}> X </div>
+            <div class="overflow">
+                <div class='popupTitle'>Create Course Module</div>
+
+                <!-- help Text -->
+                <template if:true={showFields}>
+                <div class="help-text_container">
+                <div> <span class="red-text"> * &nbsp;</span> <span>= &nbsp; Required Information</span> </div>
+                </div>
+               </template>
+                <div class=" header">{header}</div>
+
+
+                <div class="popupContainer">
+                    <div if:false={showFields} class="module-option">
+                        <label class="radioButton-label">Choose course module type</label>
+                        <lightning-radio-group options={options} value={selectedOption} onchange={handleRadioChange}
+                            class="custom-radio-group">
+                        </lightning-radio-group>
+                    </div>
+
+                    <!-- ////fields -->
+                    <div if:true={showFields}>
+                        <template for:each={processedFieldsWithValues} for:item="field">
+                            <div key={field.label} class="slds-form-element">
+                                <div class="slds-form-element__control">
+
+                                    <template if:true={field.isCheckbox}>
+                                        <lightning-input type="checkbox" data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} checked={field.value}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isPicklist}>
+                                        <lightning-combobox data-id={field.apiName} label={field.label}
+                                            options={field.options} onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-combobox>
+                                    </template>
+
+                                    <template if:true={field.isFile}>
+                                        <lightning-input type="file" data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} required={field.isRequired}>
+                                        </lightning-input>
+                                        <p if:true={fileName}>Uploaded: {fileName} ({fileExtension})</p>
+                                    </template>
+
+                                    <template if:true={field.isText}>
+                                        <lightning-input type={field.type} data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isDate}>
+                                        <lightning-input type="date" data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isDatetimeLocal}>
+                                        <lightning-input type="datetime-local" data-id={field.apiName}
+                                            label={field.label} onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isNumber}>
+                                        <lightning-input type="number" data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isSearch}>
+                                        <lightning-input type="search" data-id={field.apiName} label={field.label}
+                                            onchange={handleInputChange} value={field.value}
+                                            required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                    <template if:true={field.isLookup}>
+                                        <lightning-input type="text" data-id={field.apiName} label={field.label}
+                                            value={defaultVal} disabled required={field.isRequired}>
+                                        </lightning-input>
+                                    </template>
+
+                                </div>
+                            </div>
+                        </template>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="fixedDiv">
+
+                    <template if:false={showAddMoreButton}>
+                        <template if:false={islastPage}>
+                            <lightning-button label="Next" variant="brand" disabled = {isDisabledNextButton}
+                                class="create-course-button create-course-btn button" onclick={nextPage} >
+                            </lightning-button>
+                        </template>
+                        <template if:true={islastPage}>
+                            <lightning-button label="Save" variant="brand"
+                                class="create-course-button create-course-btn button" onclick={saveRecord}></lightning-button>
+                        </template>
+
+                    </template>
+
+                    <template if:true={showAddMoreButton}>
+                        <lightning-button label="Add more" variant="brand"
+                            class="create-course-button create-course-btn button" onclick={nextPage} ></lightning-button>
+
+                        <lightning-button label="Save" variant="brand"
+                            class="create-course-button create-course-btn button" onclick={saveRecord}></lightning-button>
+                    </template>
+
+                    <template if:true={showPreviousButton}>
+                        <lightning-button label="Previous" variant="brand"
+                            class="create-course-button create-course-btn button" onclick={previousPage}>
+                        </lightning-button>
+
+                    </template>
+                    <!-- <lightning-button label="Cancel" variant="brand"
+                        class="create-course-button create-course-btn button" onclick={close}></lightning-button> -->
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</template>

@@ -182,3 +182,34 @@
     background: #359080;
     width: 100px;
 }
+
+.profile-container {
+    display: flex;
+    align-items: center;
+}
+
+.profile-text {
+        display: flex;
+    flex-direction: column;
+    margin-right: 13px;
+    margin-left: 88%;
+    margin-top: 0%;
+}
+
+.profile-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #333;
+}
+
+.profile-role {
+    font-size: 14px;
+    color: #666;
+}
+
+.profile-image {
+    width: 50px; /* Adjust size */
+    height: 50px;
+    border-radius: 12px; /* Rounded corners */
+    object-fit: cover;
+}

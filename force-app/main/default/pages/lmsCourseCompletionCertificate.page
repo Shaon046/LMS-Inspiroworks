@@ -1,0 +1,54 @@
+<!-- /**
+ * @description  This is the certificate completion PDF page for learner
+ * @author       Shaon Bhattacharjee
+ * @date         19-02-2025
+ * @version      1.0
+ */ -->
+
+<apex:page controller="LMSCertificateController" renderAs="pdf" standardStylesheets="false"  showHeader="false" applyHtmlTag="false"> 
+<head>
+    <style>
+        @page {
+        size: A4 landscape;
+        margin: 0;
+        padding: 0;
+    }
+    </style>
+</head>
+    <apex:outputPanel rendered="{!NOT(ISNULL(enrolledCourse))}">     
+    <apex:pageBlock >
+        <div style="font-family: Arial, sans-serif; text-align: center; margin: 0; background-color: #f4f4f4; width:1100px ;height:760px">
+            <div style="border: 2px solid #0070D2; border-radius: 8px; width: 99%; margin: auto; background-color: #fff; text-align: center; height:100%">
+                <table style="height:100%">
+                    <tr style="height:755px" >
+                        
+                        <td style="width: 20%; text-align: center;height:100%;">
+                            <apex:image value="{!URLFOR($Resource.LmsLogo)}" style="width: 150px; max-height:150px;" />
+                        </td>
+                        <td style="width: 60%; background-color:#f0f9fc;  padding: 20px;position:relative"> 
+                            <div style="position: relative; z-index: 10; display:flex;justify-content:space-between;">
+                            <p style="font-size: 24px;margin-bottom:30px">This is to certify that</p>
+                            <p style="font-size: 24px; font-style: italic; font-weight: bold; margin-bottom:30px">{!firstName} {!lastName}</p>
+                            <p style="font-size: 24px; margin-bottom: 30px;">has successfully completed the course</p>
+                            <p style="font-size: 24px; font-style: italic; font-weight: bold;">{!courseName}</p>
+                            <p style="font-size: 24px; margin-bottom: 30px;">on </p>
+                            <p style="font-size: 24px; margin-bottom: 30px;"><b>{!completionDate}</b></p>
+                            <p style="font-size: 24px;">with a score of </p>
+                            <p style="font-size: 24px; margin-bottom: 30px; font-weight:600">90%</p>
+                            <p style="font-size: 20px; margin-top:30px;">
+                                This course was conducted through the {!orgName} in Salesforce, 
+                                ensuring a high-quality learning experience and skill enhancement.
+                            </p>
+                            </div>
+                            
+                               <img src="{!URLFOR($Resource.watermark)}" style="width: 440px; height: 440px; position: absolute; top: 40%; left: 25%; opacity: 0.5;"/>
+
+                               <img src="{!URLFOR($Resource.footerlogo)}" style="width: 150px; height: 100px; position: absolute; bottom: -28%; right:10px; opacity: 0.5;"/>
+                        </td> 
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </apex:pageBlock>
+</apex:outputPanel>
+</apex:page>

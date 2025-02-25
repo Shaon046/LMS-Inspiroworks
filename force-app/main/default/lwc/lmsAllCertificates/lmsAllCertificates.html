@@ -1,0 +1,67 @@
+<template>
+  <div class="body">
+
+    <template if:true={isLoading}>
+      <div class="backdrop-loader">
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+      </div>
+    </template>
+
+    <header class="header">
+      Certification
+    </header>
+
+    <template if:false={isLoading}>
+      <div class="content-container">
+        <template lwc:if={hasCertificate}>
+          <template if:false={pdfPreview}>
+            <p class="info-text">Access and download your course completion certificates on this page</p>
+            <template for:each={enrolledCourseData} for:item="course">
+
+
+              <div class="pdf-container" key={course}>
+                <div class='certification-text-container'>
+                  <div class="icon">
+                    <img src={course.courseImage} alt="course image"/>
+                  </div>
+                  <div class="text">
+                    <p>{course.Course_Name__c}</p>
+                  </div>
+                </div>
+
+                <div class="button-container">
+                  <button class="btn" data-id={course.Course_Title__c} onclick={viewPdf}>View Certificate</button>
+                </div>
+              </div>
+            </template>
+          </template>
+        </template>
+        <template lwc:else>
+          <div style="display:flex; justify-content:center">
+            <p class="certificate-header-text">No certificate found. Please ensure your Course is completed</p>
+          </div>
+        </template>
+
+
+        <template if:true={pdfPreview}>
+          <!-- <div class="iframe-container">
+          <iframe class='preview' src={vfPageUrl} height="600" width="700" title="Iframe Example"></iframe>
+          <div class="button-container">
+            
+            <button class="btn"  onclick={downloadPDF} style="backgroud-color:red">Download Certificate</button>
+          </div>
+        </div> -->
+
+          <div class="iframe-container">
+            <p class='certificate-header-text'>Here's your certificate!</p>
+            <iframe class="preview" src={vfPageUrl} title="Iframe Example" onload={hideHeaderButton}></iframe>
+         <button class="btn backButton"  onclick={back}>Back</button>
+          </div>
+        </template>
+
+      </div>
+    </template>
+  </div>
+
+
+</template>

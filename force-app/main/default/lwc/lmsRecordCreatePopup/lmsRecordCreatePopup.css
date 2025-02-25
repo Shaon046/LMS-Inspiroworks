@@ -42,8 +42,8 @@
 .popupContainer {
     display: flex;
     flex: 1;
-    height: 100%;
-    padding: 20px 30px;
+   
+    padding: 20px 30px 80px 30px;
 }
 
 .popupLeft {

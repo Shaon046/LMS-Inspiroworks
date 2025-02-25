@@ -1,3 +1,16 @@
+.my_course_container {
+    display: flex;
+}
+
+.my_course_left_container {
+    width: 50%;
+    padding-left: 10px;
+}
+
+.my_course_right_container {
+    width: 50%;
+    padding-left: 10px;
+}
 .slds-card {
 	margin: 1rem auto;
 	max-width: 800px;
@@ -94,12 +107,10 @@
 }
 
 .custom-slds-button:disabled {
-	background-color: #fafbfc;
-	/* Disabled background */
-	color: #c7c7c7;
-	/* Disabled text color */
-	cursor: not-allowed;
-	/* Disabled cursor */
+	background-color: #c7c7c7;
+	color: #fafbfc;
+	cursor: text;
+	
 }
 
 ::-webkit-scrollbar {

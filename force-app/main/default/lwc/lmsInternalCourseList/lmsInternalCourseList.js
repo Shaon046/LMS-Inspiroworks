@@ -1,5 +1,5 @@
 import { LightningElement, wire, track } from 'lwc';
-import fetchAvailableCoursesWithFiles from '@salesforce/apex/lmsCoursesTabController.fetchAvailableCoursesWithFiles';
+import fetchAvailableCoursesWithFiles from '@salesforce/apex/LMSCoursesTabController.fetchAvailableCoursesWithFiles';
 import createLMSCourseEnrolment from '@salesforce/apex/LMSCourseEnrollementController.createLMSCourseEnrolment';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
@@ -9,21 +9,28 @@ export default class LmsInternalCourseList extends LightningElement {
     showPopup = false;
     @track isLoading = false;
 
-    @wire(fetchAvailableCoursesWithFiles)
-    wiredContacts({ error, data }) {
-        if (data) {
-            console.log(JSON.stringify(data));
-            this.recordsData = data.map(course => ({
-                ...course,
-                files: course.files.map(file => ({
-                    ...file,
-                    fileImageUrl: `/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=${file.LatestPublishedVersionId}`,
-                }))
-            }));
-            console.log(' this.recordsData37===>' + JSON.stringify(this.recordsData));
-        } else if (error) {
-            this.error = error;
-        }
+    connectedCallback() {
+        this.fetchCourses();
+    }
+
+    fetchCourses() {
+        fetchAvailableCoursesWithFiles()
+            .then(data => {
+                console.log(JSON.stringify(data));
+
+                this.recordsData = data.map(course => ({
+                    ...course,
+                    files: course.files.map(file => ({
+                        ...file,
+                        fileImageUrl: `/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=${file.LatestPublishedVersionId}`,
+                    }))
+                }));
+                console.log('this.recordsData===>' + JSON.stringify(this.recordsData));
+            })
+            .catch(error => {
+                this.error = error;
+                console.error('Error fetching courses: ', error);
+            });
     }
 
     createCourse() {
@@ -48,6 +55,16 @@ export default class LmsInternalCourseList extends LightningElement {
                     this.isLoading = false;
                 }
                 else {
+                    this.recordsData = this.recordsData.map(courseWrapper => {
+                        if (courseWrapper.course.Id === seletedCourseId) {
+                            return {
+                                ...courseWrapper,
+                                isEnroll: true 
+                            };
+                        }
+                        return courseWrapper; 
+                    });
+                    console.log('recordsData==>' + JSON.stringify(this.recordsData));
                     this.successToast('You have successfully enrolled in the course.');
                     this.isLoading = false;
                 }
@@ -78,4 +95,14 @@ export default class LmsInternalCourseList extends LightningElement {
 
         this.dispatchEvent(toastEvent)
     }
+
+selectedCourse(event) {
+    this.dispatchEvent( new CustomEvent('getcourseid', {
+        detail: {
+            courseId: event.currentTarget.dataset.id
+        }
+    }));
+}
+
+
 }

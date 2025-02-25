@@ -1,6 +1,8 @@
 import { LightningElement, track } from 'lwc';
 import LmsLogo from '@salesforce/resourceUrl/LmsLogo';
-import fetchConfigurationStyles from '@salesforce/apex/lmsCoursesTabController.fetchAvailableCoursesWithFiles';
+import fetchConfigurationStyles from '@salesforce/apex/LMSCoursesTabController.fetchAvailableCoursesWithFiles';
+import getUserDetailsWithThereRole from '@salesforce/apex/LMSDashboardController.getUserDetailsWithThereRole';
+
 
 export default class LmsCommunityHeader extends LightningElement {
     LmsLogo = LmsLogo;
@@ -11,6 +13,7 @@ export default class LmsCommunityHeader extends LightningElement {
 
     connectedCallback() {
         this.fetchStyles();
+        this.fetchUserDetails();
     }
 
     fetchStyles() {
@@ -31,6 +34,20 @@ export default class LmsCommunityHeader extends LightningElement {
                 console.error('Error fetching styles:', error);
             });
     }
+
+      fetchUserDetails() {
+        getUserDetailsWithThereRole()
+            .then((data) => {
+                if (data) {
+                   this.username = data;
+                }
+            })
+            .catch((error) => {
+                console.error('Error fetching styles:', error);
+            });
+    }
+
+
 
     get computedHeaderStyle() {
         return this.communityHeaderStyle || 'background: #add6e4;';

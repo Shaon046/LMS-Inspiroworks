@@ -1,0 +1,24 @@
+<template>
+   <div class="container">
+      <div class="dropdown">
+         <select onchange={handleFilterChange}>
+            <option value="1week">1 week</option>
+            <option value="2weeks">2 weeks</option>
+            <option value="1month">1 month</option>
+        </select>
+      </div>
+      <div class="course-list">
+         <template for:each={filteredCourses} for:item="course">
+            <div key={course.courseName} class="course-item">
+               <div class="course-title">{course.courseName}</div>
+               <div class="course-info">
+                  <!-- <span class="icon"> -->
+                     <lightning-icon icon-name="utility:event" alternative-text="event" size="small"></lightning-icon>
+                  <!-- </span> -->
+                  <span>{course.enrollmentDate}</span>
+               </div>
+            </div>
+         </template>
+      </div>
+   </div>
+</template>

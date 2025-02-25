@@ -1,0 +1,24 @@
+<template>
+    <div class="lms-my-courses-container">
+        <div class="lms-my-courses-title">
+            My Courses
+        </div>
+        <div class="lms-my-courses-body">
+            <!-- Course 1 -->
+            <template for:each={myCourses} for:item="course">
+                <div key={course.Id} class="lms-course-info">
+                    <div class="lms-course-details">
+                        <div class="lms-course-title">{course.Course_Title__r.Title__c}</div>
+                        <div class="lms-course-description">{course.Course_Title__r.Description__c}</div>
+                    </div>
+                    <div class="lms-course-action">
+                        <div class="lms-course-status">{course.Status__c}</div>
+                        <button class="lms-course-action-btn" data-id={course.Course_Title__r.Id} onclick={handleRedirect}>{course.btnLabel}</button>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+    </div>
+
+</template>

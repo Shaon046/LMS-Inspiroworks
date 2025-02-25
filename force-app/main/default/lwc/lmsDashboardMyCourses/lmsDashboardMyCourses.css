@@ -1,0 +1,74 @@
+.lms-my-courses-container{
+	background-color: #ffffff;
+	border-radius: 12px;
+	padding: 10px;
+	margin-bottom: 20px;
+}	
+.lms-my-courses-title{
+	font-size: 24px;
+	color: gray;
+	font-weight: bold;
+	border-bottom: 1px solid gray;
+	padding-left: 40px;
+	padding-bottom: 12px;
+}
+
+.lms-course-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #6e6e6e;
+}
+
+.lms-course-info {
+    display: flex;
+    width: 100%;
+	margin-bottom: 30px;
+	align-items: center;
+}
+
+.lms-course-details{
+	width: 50%;
+}
+
+.lms-course-action {
+    display: flex;
+    width: 50%;
+    justify-content: space-around;
+}
+
+.lms-my-courses-body {
+    margin-top: 30px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+
+.lms-course-description {
+    color: #9b9b9b;
+    font-size: 12px;
+}
+
+.lms-course-status {
+    border: 1px solid #d8821e;
+    height: fit-content;
+    padding: 5px 20px;
+    border-radius: 25px;
+    color: #d8821e;
+}
+
+
+
+.lms-course-action-btn{
+	border: 1px solid #8bdeff;
+    height: fit-content;
+    padding: 5px 20px;
+    border-radius: 25px;
+    color: #8c8c8c;
+    background: #ffffff;
+}
+
+.lms-course-action-btn:hover{
+    background: #8bdeff;
+    cursor: pointer;
+    color: #ffffff;
+}

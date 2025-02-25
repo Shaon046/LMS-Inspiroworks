@@ -1,0 +1,233 @@
+<apex:page controller="InvoicePDFController" renderAs="pdf" showheader="false" sidebar="false" >
+    <html>
+        <head>
+            <style type="text/css">
+                body {
+                    font-family: Arial, sans-serif;
+                }
+                .invoice-container {
+                    max-width: 800px;
+                    margin: 0 auto;
+                    border: 1px solid #ccc;
+                    padding: 20px;
+                }
+                .header {
+                    display: flex;
+                    justify-content: space-between;
+                }
+                .header img {
+                    max-width: 150px;
+                }
+                .header .title {
+                    text-align: left;
+                }
+                .section {
+                    margin-top: 20px;
+                }
+                .section-title {
+                    font-weight: bold;
+                    margin-bottom: 10px;
+                }
+                .details-table {
+                    width: 100%;
+                    border-collapse: collapse;
+                }
+                .details-table td, .details-table th {
+                    border: 1px solid #ddd;
+                    padding: 8px;
+                }
+                .details-table th {
+                    text-align: left;
+                    background-color: #f2f2f2;
+                }
+                .terms {
+                    margin-top: 20px;
+                }
+                .footer {
+                    margin-top: 30px;
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body style="font-family: Arial, sans-serif;">
+            <div class="invoice-container" style=" max-width: 800px; margin: 0 auto; border: 1px solid #ccc; padding: 20px;">
+                <div class="header" style="display: flex; justify-content: space-between;">
+                    <!--div>
+                        <img src=""{!$Resource.InvoiceLogo}"" alt="Cognixia Logo" />
+                    </div-->
+                    
+                    <div class="title" style="text-align: left;">
+                        <h2>Invoice</h2>
+                        <p><strong>Invoice Date:</strong> {!todaysdate}</p>
+                        <p><strong>Invoice Number:</strong> IN-2018108425</p>
+                    </div>
+                    
+                    <p style="margin-left: 75%; margin-top: -18%"> <apex:image url="{!$Resource.InvoiceLogo}" width="150" height="100"/></p>
+                </div>
+              <div style="width: 100%;">
+                  <div style="border-top: 1px solid #000; margin: 10px 0;"></div>
+                
+                <div class="section" style=" margin-top: 20px;width: 50%;">
+                    <div class="section-title" style="font-weight: bold;
+                    margin-bottom: 10px;">BILL TO:</div>
+                    <p>{!contact.Name}</p>
+                    <p> {!contact.MailingStreet} </p>
+                    <p> {!contact.MailingCity} </p>
+                    <p> {!contact.MailingState},{!contact.MailingCountry} - {!contact.MailingPostalCode} </p>
+                     <p>{!contact.Email}</p>
+                    <p>{!contact.Phone}</p>
+                    
+                   <!-- <p><strong>Name:</strong> Abhi</p>
+                    <p><strong>Email ID:</strong> xyz.test@gmail.com</p>
+                    <p><strong>Contact Number:</strong> +918807887877</p>
+                    <p><strong>State:</strong> Maharashtra</p>
+                    -->
+                </div>
+                  <div style="border-left: 2px solid #000; height: auto; margin: 0 20px;"></div>
+                  
+                <div class="section" style=" margin-top: -38%;width: 50%; margin-left: 60%">
+                    <div class="section-title" style="font-weight: bold;
+                    margin-bottom: 10px;">BILL FROM:</div>
+                    <p><strong>{!companyDetails.Company_Name__c}</strong></p>
+                    <p> {!companyDetails.Mailing_Street__c} </p>
+                    <p> {!companyDetails.Mailing_City__c} </p>
+                    <p> {!companyDetails.Mailing_State__c},{!companyDetails.Mailing_Country__c} - {!companyDetails.Mailing_Zip_postal_code__c} </p>
+                    <p> {!companyDetails.Email__c} </p>
+                    <p> {!companyDetails.Phone__c} </p>
+                </div>
+                
+           </div>
+                <div class="section" style=" margin-top: 60px;">
+                    <table class="details-table" style=" width: 100%;
+                    border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Payment Status</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Date of Payment</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;"> Total Amount Received</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Total Pending Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!paymentDetails.Payment_Status__c}</td>
+                                <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!paymentDate}</td>
+                                <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!paymentDetails.Payment_Amount__c}</td>
+                                <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!pendingAmount}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="section" style="Padding-top:30px">
+                    <table class="details-table" style=" width: 100%;
+                    border-collapse: collapse;">
+                        <thead>
+                            <tr>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Sr. No.</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Product Details</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Qty</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Rate</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Discount</th>
+                                <th style="border: 1px solid #ddd;
+                    padding: 8px;text-align: left;
+                    background-color: #f2f2f2;">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <apex:variable var="idx" value="{!0}"/>
+                            <apex:repeat value="{!orderItems}" var="oli">
+                                <tr>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">{!idx + 1}</td>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">{!oli.Product2.Name}</td>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">{!oli.Quantity}</td>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">{!oli.UnitPrice}</td>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">0</td>
+                                    <td style="border: 1px solid #ddd;
+                                               padding: 8px;">{!oli.UnitPrice}</td>
+                                </tr>
+
+                            </apex:repeat>
+                                                       <tr>
+                                 <td style="border: 1px solid #ddd;
+                    padding: 8px;" colspan="2">Total</td>
+                                <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!totalProducts}</td>
+                                 <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!totalRate}</td>
+                                 <td style="border: 1px solid #ddd;
+                    padding: 8px;">0</td>
+                                 <td style="border: 1px solid #ddd;
+                    padding: 8px;">{!totalRate}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!--div class="section">
+                    <div class="section-title">Bank Details:</div>
+                    <p><strong>Bank Name:</strong> Farzi Bank Limited</p>
+                    <p><strong>Branch:</strong> Ngpuer</p>
+                    <p><strong>Account Number:</strong> 5020002947520</p>
+                    <p><strong>Account Type:</strong> Current A/c</p>
+                    <p><strong>IFSC Code:</strong> HDFC0000043</p>
+                    <p><strong>PAN Details:</strong> AAHCC4311J</p>
+                </div--> 
+                <div>
+                    <p>
+                       Congratulations on taking the first step! Thank you for registering.
+                    </p>
+                </div>
+                <div class="section terms" style="Padding-top:20px;padding-bottom:20px;">
+                    <p><strong>Terms and Conditions:</strong></p>
+                    <ul>
+                        <li>This is a computer-generated receipt and does not need a signature.</li>
+                        <li>All Cheques/DD/CC/Payments are subject to realization.</li>
+                    </ul>
+                </div>
+                
+                <div class="section terms" >
+                    <p>We encourage you to reach out to us at <a href="https://www.inspiroworks.com"> www.inspiroworks.com </a> or <a href="mailto:xyz@inspiroworks.com">xyz@inspiroworks.com</a> for any inquiries.</p>
+                    <!--<p><strong>Contact Us:</strong></p>
+                    <p> {!companyDetails.Company_Name__c} </p>
+                    <p> 44, Mullick Bazar, Saket bldg, 4th floor </p>
+                    <p> Park Street, Kolkata, West Bengal, India - 700016 </p>
+                    
+                    
+                    <p> Website: {!companyDetails.Website__c} </p>-->
+                </div>
+
+                <!--div class="footer" style="Padding-top:30px">
+                    <p style="color: #808080">This is a system generated invoice and does not require a signature or a digital signature</p>
+                </div -->
+            </div>
+        </body>
+    </html>
+</apex:page>

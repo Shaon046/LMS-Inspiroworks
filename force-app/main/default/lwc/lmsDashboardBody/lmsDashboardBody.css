@@ -1,0 +1,64 @@
+.body-container{
+	background-color: #ddf6ff;
+	max-height: 90vh;
+}
+.main-body{
+	display: flex;
+}
+.left-body{
+	width: 65%;
+	margin-left: 15px;
+}
+.right-body{
+	width: 35%;
+}
+.lms-welcome-message{
+	padding: 20px;
+}
+.lms-user-welcome{
+	color: #003e66;
+	font-size: 32px;
+    font-weight: bold;
+}
+
+.lms-welcome-description{
+	color: #a3b5bc;
+}
+.lms-body-header {
+    display: flex;
+	justify-content: space-between;
+}
+.lms-stats-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+.lms-stats-card {
+   background: #ffffff;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+}
+
+.stats-text {
+    text-align: center;
+}
+
+.number {
+    font-size: 24px;
+}
+
+.label {
+    font-size: 14px;
+    color: #6e6e6e;
+}
+.completed-mark{
+	border-radius: 25px;
+	background-color: #43A047;
+	padding: 5px;
+}

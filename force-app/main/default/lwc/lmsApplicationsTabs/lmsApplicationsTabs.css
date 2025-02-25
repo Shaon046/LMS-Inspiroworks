@@ -9,12 +9,28 @@
 }
 /* Base style for vertical tabs */
 .vertical-tabs-container {
-    width: 100%;
+    /* width: 95%;
     float: left;
     background-color: white; /* Light background for the tab panel */
-    padding: 1rem;
-    border-right: 1px solid  white;;
+    /* padding: 1rem;
+    border-right: 1px solid  white;;  */
+    /* width: 120%;
+    float: left;
+    background-color: white;
+    padding: 3rem;
+    border-right: 1px solid white;
+    padding-top: 0px; */
+    width: 120%;
+    float: left;
+    background-color: white;
+    padding: 2rem;
+    border-right: 1px solid white;
+    padding-top: 0px;
+    text-align :center;
+        margin: -13%;
+    margin-top: 6%;
 }
+
 
 .slds-nav-vertical__action {
     font-weight: bold;
@@ -36,7 +52,7 @@
 /* Active (clicked) state */
 .slds-nav-vertical__action.slds-is-active {
     /* background-color: #005fbf; Blue background for active tab */
-    color: white; /* White text for active tab */
+    color: rgb(27, 24, 24); /* White text for active tab */
     /* border-left: 4px solid #004091; Blue left border for active tab */
 }
 
@@ -57,6 +73,6 @@
 /* Sub-tabs active */
 .slds-nav-vertical__sublist p.slds-is-active {
     font-weight: bold;
-    color: white; /* Blue text for active sub-tab */
-    background-color: #61a6ec; /* Light blue for active sub-tab */
+    color: rgb(27, 21, 21); /* Blue text for active sub-tab */
+    background-color: #ddf6ff; /* Light blue for active sub-tab */
 }

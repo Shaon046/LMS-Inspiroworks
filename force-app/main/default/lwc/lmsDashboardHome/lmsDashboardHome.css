@@ -1,0 +1,16 @@
+.custom-box {
+    border: 1px solid #d8dde6; /* Light gray border */
+    border-radius: 1rem;    /* Rounded corners */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+
+.custom-box-space{
+    border: 1px solid #d8dde6; /* Light gray border */
+    border-radius: 1rem;    /* Rounded corners */
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */ 
+    height: 233px;
+    margin-top: 5px;
+}

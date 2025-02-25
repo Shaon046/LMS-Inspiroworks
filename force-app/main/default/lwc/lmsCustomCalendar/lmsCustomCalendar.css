@@ -1,0 +1,157 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 20px;
+    font-size: large;
+    font-weight: bold;
+    /* margin-bottom: 10px; */
+    height: 100%;
+    width: 100%;
+}
+
+.calendar-header>span {
+    cursor: pointer;
+    padding: 20px;
+    border-radius: 50px;
+}
+
+.calendar-header>span:hover {
+    background-color: #f5f5f5;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.weeks {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    font-weight: bold;
+
+    align-content: center;
+    /* align-self: center; */
+    justify-self: center;
+
+}
+
+.weeks li {
+    flex: 1;
+    text-align: center;
+    font-size: medium;
+    color: #555;
+}
+
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+
+    list-style: none;
+}
+
+.days li {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+
+    font-size: medium;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+
+    background-color: #ddf6ff;
+    border: 2px solid #a2ddff;
+    border-radius: 8px;
+
+
+    position: relative;
+}
+
+
+.days li:hover {
+    background-color: #c3dbe4;
+}
+
+.days li.inactive {
+    background-color: #f5f5f5 !important;
+}
+
+.days li.inactive:hover {
+    background-color: #edecec !important;
+}
+
+
+
+.days li.current-date {
+    background-color: #77dbff !important;
+}
+
+.event-mark {
+    position: absolute;
+    width: 60%;
+    height: 4px;
+    border-radius: 10px;
+    background-color: #faa638;
+    bottom: 10%;
+}
+
+.added-paragraph {
+    color: red;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.enrollment-date {
+    font-size: large;
+    font-weight: 400;
+}
+
+
+.event-details {
+    /* display: flex; */
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: rgb(255, 255, 255);
+    padding: 4px 18px;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid black;
+    width: 100%;
+    min-height: 40px;
+    position: absolute;
+    z-index: 100;
+}
+
+.event-name {
+    margin-left: 5px;
+    font-weight: 600;
+    font-size: 16px;
+    color: #747474;
+}

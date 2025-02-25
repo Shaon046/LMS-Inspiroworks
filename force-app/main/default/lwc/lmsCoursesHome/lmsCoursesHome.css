@@ -1,3 +1,10 @@
 .custom-container{
 	color : black;
 }
+
+.sideBar{
+	width: 20%;
+}
+.contentContainer{
+	width: 80%;
+}

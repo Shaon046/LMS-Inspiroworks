@@ -1,0 +1,4 @@
+<apex:page >
+    <iframe src="https://inspiroworks1.h5p.com/content/1292494283067522367/embed" width="1088" height="637" frameborder="0" allowfullscreen="allowfullscreen" aria-label="Test 2"></iframe>
+    <script src="https://inspiroworks1.h5p.com/js/h5p-resizer.js" charset="UTF-8"></script>
+</apex:page>

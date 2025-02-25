@@ -1,0 +1,17 @@
+.slds-box {
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* background: #ffffff; */
+}
+.custom-box {
+    border: 1px solid #d8dde6; /* Light gray border */
+    border-radius: 1rem;    /* Rounded corners */
+    background-color: #fff; /* White background */
+    box-shadow: 0 7px 14px rgb(82 100 247 / 44%); /* Subtle shadow */
+    width: 125px;
+    margin-bottom: 5px;
+    height: 82px;
+    /* background: padding-box; */
+    text-align: center;
+    padding: 15px;
+}

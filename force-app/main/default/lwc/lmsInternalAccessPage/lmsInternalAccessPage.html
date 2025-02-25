@@ -1,109 +1,162 @@
 <template>
   <div class="dashboard">
-    <div class="profile">
-      <div class="profile-wrapper">
-        <span class="username">Admin</span>
-        <span class="avatar">A</span>
-      </div>
-    </div>
-
     <!-- new -->
     <div class="slds-tabs_default slds-tabs_medium ">
       <div class="navbar">
-        <ul class="slds-tabs_default__nav nav-links" role="tablist">
-          <li class="slds-tabs_default__item slds-is-active" title="Dashboard" role="presentation" onclick={selectedTab}
-            data-id="Dashboard">
+        <ul class="slds-tabs_default__nav nav-links nav-menu" role="tablist">
+          <li class="slds-tabs_default__item slds-is-active " title="Dashboard" role="presentation"
+            onclick={selectedTab} data-id="Dashboard">
             <a class="slds-tabs_default__link" href="#Dashboard" role="tab" tabindex="0" aria-selected="true"
-              aria-controls="Dashboard" id="Dashboard-tab">Dashboard</a>
+              aria-controls="Dashboard" id="Dashboard-tab">DASHBOARD</a>
           </li>
           <li class="slds-tabs_default__item" title="All Courses" role="presentation" onclick={selectedTab}
             data-id="All_Courses">
             <a class="slds-tabs_default__link" href="#All_Courses" role="tab" tabindex="-1" aria-selected="false"
-              aria-controls="All_Courses" id="All_Courses-tab">All Courses</a>
+              aria-controls="All_Courses" id="All_Courses-tab">ALL COURSES</a>
           </li>
-            <li class="slds-tabs_default__item" title="my_course" role="presentation" onclick={selectedTab} data-id="my_course">
+          <!-- <li class="slds-tabs_default__item" title="my_course" role="presentation" onclick={selectedTab}
+            data-id="my_course">
             <a class="slds-tabs_default__link" href="#my_course" role="tab" tabindex="-1" aria-selected="false"
               aria-controls="my_course" id="my_course">My course</a>
+          </li> -->
+          <li class="slds-tabs_default__item" title="Chetter-group" role="presentation" onclick={selectedTab}
+            data-id="Chetter-group">
+            <a class="slds-tabs_default__link" href="#Chetter-group" role="tab" tabindex="-1" aria-selected="false"
+              aria-controls="Chetter-group" id="Chetter-group-tab">CHATTER GROUP</a>
           </li>
           <li class="slds-tabs_default__item" title="Report" role="presentation" onclick={selectedTab} data-id="Report">
             <a class="slds-tabs_default__link" href="#Report" role="tab" tabindex="-1" aria-selected="false"
-              aria-controls="Report" id="Report-tab">Report</a>
+              aria-controls="Report" id="Report-tab">REPORT</a>
           </li>
+          <template if:true={isShowCourseDetailView}>
+            <li class="slds-tabs_default__item" title="course_detail_view" role="presentation" onclick={selectedTab}
+              data-id="course_detail_view">
+              <a class="slds-tabs_default__link" href="#course_detail_view" role="tab" tabindex="-1"
+                aria-selected="false" aria-controls="course_detail_view" id="course_detail_view-tab">COURSE DETAILS
+                VIEW</a>
+            </li>
+          </template>
 
-        
+
         </ul>
+        <div class="profile">
+          <div class="profile-wrapper">
+            <span class="username">{userName}</span>
+            <span class="avatar">A</span>
+          </div>
+        </div>
       </div>
       <div id="Dashboard" data-id="Dashboard" class="slds-tabs_default__content slds-show" role="tabpanel"
-        aria-labelledby="Dashboard-tab" style="padding:0">
+        aria-labelledby="Dashboard-tab" style="padding:0;border-radius: 7px;">
         <!-- Dashboard Tiles -->
-        <section class="dashboard-tiles">
-          <div class="tile" onclick={selectedTab} data-id="All_Courses">
-            <lightning-icon icon-name="utility:knowledge_base" size="large" class="icon dashbord-icon"></lightning-icon>
-            <div>
-              <h2>All Courses</h2>
-              <template lwc:if={dashboardCountData}>
-                <span>{dashboardCountData.AllCourses}</span>
+        <!-- class="dashboard-tiles" -->
+
+        <section>
+          <div class="slds-grid slds-wrap ">
+
+            <!-- Right Column start-->
+            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+              <div style="padding-bottom:4px">
+                <p style="font-size: 25px;color: #000084;"><b>Welcome {userName}</b></p>
+                <p style="font-size: 14px;color: #000084;" class="slds-m-bottom_small"> Blended learning combines
+                  traditional teaching
+                  with online tools to create flexible, student-
+                  centered learning experiences.</p>
+
+              </div>
+              <template lwc:if={isCourseEnrollment}>
+                <div class="custom-box-space slds-p-around_x-samll">
+                  <c-lms-dashboard-course-enrollment-report enrollment-record={courseEnrollmentData}
+                    table-headers={reportTabelHeader}></c-lms-dashboard-course-enrollment-report>
+                </div>
+              </template>
+              <template lwc:if={isMonthlyProgressData}>
+                <div class="custom-box-space slds-p-around_x-samll slds-p-top_medium"
+                  style="margin-top: 20px;max-height: 240px; overflow-y: auto;">
+                  <c-lms-dashbord-monthly-progress-report monthly-progress-data={monthlyChartProgressData}>
+                  </c-lms-dashbord-monthly-progress-report>
+
+                </div>
               </template>
             </div>
-          </div>
-          <div class="tile">
-            <lightning-icon icon-name="utility:groups" size="large" class="icon dashbord-icon"></lightning-icon>
-            <div>
-              <h2>Discussion</h2>
-              <span>0</span>
+            <!-- Right Column end-->
+            <!-- Left Column start-->
+            <div class="slds-col slds-size_1-of-2 slds-p-around_medium">
+              <template lwc:if={isCardRecord}>
+                <div class="slds-p-around_x-samll slds-m-bottom_small">
+                  <c-lms-dashboard-cards-report dashboard-card-data={dashBoardCardRecord}>
+                  </c-lms-dashboard-cards-report>
+                </div>
+              </template>
+              <div class="custom-box-space slds-p-around_x-samll">
+                <template lwc:if={isStaffChartData}>
+                  <div class="staff-chart">
+                    <c-lms-staff-completed-courses-chart staff-chart-record={staffChartData}>
+                    </c-lms-staff-completed-courses-chart>
+                  </div>
+                </template>
+              </div>
+
+              <div class="custom-box-space slds-p-around_x-samll slds-p-top_medium" style="margin-top: 20px;">
+                <template lwc:if={isStaffTableData}>
+                  <div>
+                    <c-lms-dashboard-staff-enrollment-report staff-data={staffTableReport} headers={staffTableHeader}>
+                    </c-lms-dashboard-staff-enrollment-report>
+                  </div>
+                </template>
+              </div>
             </div>
           </div>
-          <div class="tile">
-            <lightning-icon icon-name="utility:record" size="large" class="icon dashbord-icon"></lightning-icon>
-            <div>
-              <h2>None Graded</h2>
-              <span>0</span>
-            </div>
-          </div>
-          <div class="tile">
-            <lightning-icon icon-name="utility:chat" size="large" class="icon dashbord-icon"></lightning-icon>
-            <div>
-              <h2>Chat</h2>
-              <span>0</span>
-            </div>
-          </div>
-          <div class="tile">
-            <lightning-icon icon-name="utility:event" size="large" class="icon dashbord-icon"></lightning-icon>
-            <div>
-              <h2>Calendar</h2>
-              <span>0</span>
-            </div>
-          </div>
+          <!-- Left Column end-->
         </section>
       </div>
 
 
       <div id="All_Courses" data-id="All_Courses" class="slds-tabs_default__content slds-hide" role="tabpanel"
         aria-labelledby="All_Courses-tab">
-        <div class="my_course_container">
-          <div class="my_course_left_container">
-            <c-lms-internal-course-list oncoursecreate={handleCourseCreated}></c-lms-internal-course-list>
-          </div>
-          <div class="my_course_right_container">
-           
-          </div>
-        </div>
+
+        <!-- <c-lms-internal-course-list oncoursecreate={handleCourseCreated} data-child ongetcourseid={getSelectedCourseId}>
+        </c-lms-internal-course-list> -->
+
+        <c-lms-all-courses oncoursecreate={handleCourseCreated} data-child ongetcourseid={getSelectedCourseId}
+          is-show-course-detail-view={isShowCourseDetailView} is-refresh-course={isRefreshCourse}>
+        </c-lms-all-courses>
+
 
       </div>
+      <div id="Chetter-group" data-id="Chetter-group" class="slds-tabs_default__content slds-hide" role="tabpanel"
+        aria-labelledby="Chetter-group-tab">
+
+        <c-lms-chatter-group></c-lms-chatter-group>
+
+      </div>
+
       <div id="Report" data-id="Report" class="slds-tabs_default__content slds-hide" role="tabpanel"
         aria-labelledby="Report-tab">
-        Item Three Content
+        <!-- <c-lms-admin-chat-box></c-lms-admin-chat-box> -->
+        <!-- <c-lms-admin-chat-box></c-lms-admin-chat-box> -->
       </div>
-     
-      <div id="mycourse" data-id="my_course" class="slds-tabs_default__content slds-hide" role="tabpanel"
-      aria-labelledby="my_course">
-      My course
-    </div>
+
+
+      <!-- <div id="mycourse" data-id="my_course" class="slds-tabs_default__content slds-hide" role="tabpanel"
+        aria-labelledby="my_course">
+       
+      </div> -->
     </div>
     <div>
 
     </div>
 
+    <div id="course_detail_view" data-id="course_detail_view" class="slds-tabs_default__content slds-hide"
+      role="tabpanel" aria-labelledby="All_Courses-tab">
+      <!-- <c-lms-internal-course-detail-view-page onhidecoursedetailview={hideCourseDetailView}
+        course-record-id={courseId}>
+      </c-lms-internal-course-detail-view-page> -->
+
+      <c-lms-internal-my-course-detailpage onhidecoursedetailview={hideCourseDetailView} course-record-id={courseId}
+        record-saved={recordSaved}></c-lms-internal-my-course-detailpage>
+
+    </div>
     <!-- new -->
 
     <!-- Content Area
@@ -157,7 +210,8 @@
 
   <!-- new -->
   <div if:true={showPopup} class="backdrop">
-    <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup}
-    object-label={objectLabel}></c-lms-record-create-popup>
-</div>
+    <c-lms-record-create-popup oncloserecordcreatepopup={exitPopup} object-label={objectLabel} object-name={objectName}
+      custom-metadata-name={customMetadataName} has-attachment={hasAttachment} onrecordsaved={afterRecordSave}>
+    </c-lms-record-create-popup>
+  </div>
 </template>

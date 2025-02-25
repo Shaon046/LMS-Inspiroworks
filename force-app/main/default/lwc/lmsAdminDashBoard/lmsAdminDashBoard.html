@@ -1,0 +1,53 @@
+<template>
+    <div class="slds-grid slds-wrap slds-gutters slds-p-top_medium"
+        style="background-color: #ddf6ff; padding-bottom:1.2rem">
+        <div class="slds-col slds-size_1-of-2 slds-p-right_medium">
+            <div style="padding-bottom:4px">
+                <p style="font-size: 25px;color: #000084;"><b>Welcome {currentUserName}</b></p>
+                <p style="font-size: 14px;color: #000084;" class="slds-m-bottom_small"> Blended learning
+                    combines traditional teaching with online tools to create flexible, student-
+                    centered learning experiences.</p>
+
+            </div>
+            <template lwc:if={isCourseEnrollment}>
+                <div class="custom-box-space slds-p-around_x-samll">
+                    <c-lms-dashboard-course-enrollment-report enrollment-record={courseEnrollmentData}
+                        table-headers={reportTabelHeader}></c-lms-dashboard-course-enrollment-report>
+                </div>
+            </template>
+            <template lwc:if={isMonthlyProgressData}>
+                <div class="custom-box-space slds-p-around_x-samll slds-p-top_medium"
+                    style="margin-top: 20px; max-height: 240px; overflow-y: auto;">
+                    <c-lms-dashbord-monthly-progress-report monthly-progress-data={monthlyChartProgressData}>
+                    </c-lms-dashbord-monthly-progress-report>
+                </div>
+
+            </template>
+
+        </div>
+
+        <div class="slds-col slds-size_1-of-2 slds-p-left_medium">
+            <template lwc:if={isCardRecord}>
+                <div class="slds-p-around_x-samll slds-m-bottom_small">
+                    <c-lms-dashboard-cards-report dashboard-card-data={dashBoardCardRecord}>
+                    </c-lms-dashboard-cards-report>
+                </div>
+            </template>
+            <template lwc:if={isStaffChartData}>
+                <div class="custom-box-space slds-p-around_x-samll">
+                    <div class="staff-chart" style="">
+                        <c-lms-staff-completed-courses-chart staff-chart-record={staffChartData}>
+                        </c-lms-staff-completed-courses-chart>
+                    </div>
+                </div>
+            </template>
+
+            <div class="custom-box-space slds-p-around_x-samll slds-p-top_medium" style="margin-top: 20px;">
+                <div lwc:if={isStaffTableData}>
+                    <c-lms-dashboard-staff-enrollment-report staff-data={staffTableReport} headers={staffTableHeader}>
+                    </c-lms-dashboard-staff-enrollment-report>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

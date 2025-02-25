@@ -1,0 +1,12 @@
+.custom-header {
+    background-color: #0070D2 !important;
+    color: white !important;
+}
+
+.slds-table tbody tr:nth-child(odd) {
+    background-color: #F1F9FF; /* Light blue background for odd rows */
+}
+
+.slds-table tbody tr:nth-child(even) {
+    background-color: #FFFFFF; /* White background for even rows */
+}

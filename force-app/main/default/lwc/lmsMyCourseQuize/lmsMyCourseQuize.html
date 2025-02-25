@@ -1,0 +1,186 @@
+<template>
+  <template if:true={displayQuiz}>
+
+    <div class="quiz-container">
+      <!-- Quiz Title -->
+      <h2 class="quiz-title">Quiz</h2>
+
+      <!-- Question Progress and Navigation -->
+      <div class="quiz-navigation">
+
+        <!-- Question Progress -->
+        <p class="progress-text">{questionProgress}</p>
+
+        <!-- Next Button -->
+        <button
+        type="button"
+        class="nav-button"
+        onclick={handlePrevious}
+        disabled={isFirstQuestion}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 1-.5.5H2.707l3.147 3.146a.5.5 0 0 1-.708.708l-4-4a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 7.5H14.5A.5.5 0 0 1 15 8z" />
+        </svg>
+      </button>
+        <button
+        type="button"
+        class="nav-button"
+        onclick={handleNext}
+        disabled={isLastQuestion}
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 1 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z" />
+        </svg>
+      </button>
+
+      </div>
+      <hr class="new1">
+
+      <!-- Current Question -->
+      <template if:true={currentQuestion}>
+        <div class="question-section">
+          <p class="question-text" style="font-family: Montserrat, sans-serif;">{currentQuestion.question}</p>
+
+          <!-- Options -->
+          <div class="options">
+            <template for:each={currentOptions} for:item="option">
+              <div key={option.id} class="option" data-id={option.id} data-value={option.text} onclick={handleRowClick}>
+                <input
+              type="radio"
+              id={option.id}
+              name="answer"
+              value={option.text}
+              onchange={handleOptionChange}
+              checked={option.isChecked}
+          />
+                <label for={option.id} style="font-family: Montserrat, sans-serif;">{option.text}</label>
+              </div>
+            </template>
+          </div>
+
+
+          <!-- Submit Button -->
+          <template if:false={isComingAdminViewPage}>
+            <div class="submit-button">
+              <button
+            type="button"
+            onclick={handleSubmit}
+            if:true={isLastQuestion}
+          >
+            Submit
+          </button>
+            </div>
+          </template>
+        </div>
+      </template>
+    </div>
+  </template>
+
+  <template if:true={displayPass}>
+    <div class="slds-p-around_medium slds-size_2-of-3 slds-p-around_x-small card-css"
+      style="width: 110%; border-color : #47bde8;">
+      <lightning-card variant="Narrow">
+        <span class="slds-p-around_x-small slds-align_absolute-center" style="background:rgb(185 230 246)">
+					<h3 slot="title">
+						<div class="slds-card__header-title slds-text-heading_medium"> Attempt {attemptNumber}: <span class="slds-text-color_success slds-p-left_x-small"> Passed ({designatedPassingGrade} % required to pass)</span>
+    </div>
+    </h3>
+    </span>
+    <div class="slds-p-left_xx-large slds-p-top_large">
+      <span class="slds-text-heading_medium">{passingGrade} %</span>
+      <span class="slds-text-heading_small slds-p-left_small">Correct ({correctAnswers} / {totalQuestions})</span>
+      <div class="slds-p-top_xx-small slds-text-body_small"> {currentDateTime} </div>
+      <div class="slds-p-top_xx-small">
+        <button style="background-color:#58bbde; color: black;" onclick={reviewQuestionsFn} class="slds-button slds-button_inverse">Review Questions</button>
+      </div>
+    </div>
+    </lightning-card>
+    </div>
+    <br>
+  </template>
+  <template if:true={displayFail}>
+    <div class="slds-p-around_medium slds-size_2-of-3 slds-p-around_x-small card-css"
+      style="width: 110%; border-color : #47bde8;">
+      <lightning-card variant="Narrow">
+        <span class="slds-p-around_x-small slds-align_absolute-center" style="background:rgb(185 230 246)">
+					<h3 slot="title">
+            <template if:false={notFailedFinal}>
+						<div class="slds-card__header-title slds-text-heading_medium"> Attempt {attemptNumber}: <span class="slds-text-color_error slds-p-left_x-small"> Failed Final({designatedPassingGrade} % required to pass)</span>
+    </div>
+  </template>
+  <template if:true={notFailedFinal}>
+    <div class="slds-card__header-title slds-text-heading_medium"> Attempt {attemptNumber}:
+      <span class="slds-text-color_error slds-p-left_x-small"> Failed ({designatedPassingGrade} % required to pass)</span>
+
+    </div>
+  </template>
+  </h3>
+  </span>
+  <div class="slds-p-left_xx-large slds-p-top_large">
+    <span class="slds-text-heading_medium">{passingGrade} %</span>
+    <span class="slds-text-heading_small slds-p-left_small">Correct ({correctAnswers} / {totalQuestions})</span>
+    <div class="slds-p-top_xx-small slds-text-body_small"> {currentDateTime} </div>
+    <template lwc:if={notFailedFinal}>
+      <div class="slds-p-top_xx-small">
+
+        <button style="background-color:#58bbde; color: black;" onclick={retakeQuiz} class="slds-button slds-button_inverse">Retake Quiz</button>
+      </div>
+    </template>
+    <template if:false={notFailedFinal}>
+      <div class="slds-card__header-title slds-text-heading_small">
+        <span class="slds-text-color_error slds-p-top_x-small">No attempts remaining.</span>
+      </div>
+    </template>
+  </div>
+  </lightning-card>
+  </div>
+  <br>
+</template>
+<!-- Other parts of the quiz remain unchanged -->
+
+<!-- Review Questions Modal -->
+<template if:true={showReviewModal}>
+  <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+    <div style="margin: 60px auto; width:65%;">
+      <header class="slds-modal__header">
+        <h2 class="slds-text-heading_medium" style="font-size: 17px;">Review Questions</h2>
+        <button
+          class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+          title="Close"
+          onclick={closeReviewModal}
+        >
+          <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"></lightning-icon>
+        </button>
+      </header>
+      <div class="slds-modal__content slds-p-around_medium" style="max-height: 495px; overflow-y: auto;">
+        <template for:each={questions} for:item="question">
+          <div key={question.id} class="slds-p-bottom_medium">
+            <p class="slds-text-heading_small" style="font-family: Montserrat, sans-serif;">
+              {question.questionNumber}.&nbsp; {question.question}
+            </p>
+            <template for:each={question.options} for:item="option">
+              <div key={option.id} class="slds-p-around_small" style={option.dynamicColor}>
+                <input type="radio" id={option.id} checked={option.isChecked} disabled /> &nbsp;&nbsp;
+                <span>{option.text}</span><br>
+                <!-- Display result text only next to the selected option -->
+                <span if:true={option.resultText} style="font-weight: bold; margin-left: 10px;">
+          {option.resultText}
+        </span>
+              </div>
+            </template>
+          </div>
+        </template>
+
+
+      </div>
+      <footer class="slds-modal__footer" style="padding : 9px ">
+        <button class="slds-button slds-button_neutral" onclick={closeReviewModal}>
+          Close
+        </button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>
+
+</template>

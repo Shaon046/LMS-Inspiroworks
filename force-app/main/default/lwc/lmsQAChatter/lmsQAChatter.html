@@ -1,0 +1,42 @@
+<template>
+    <template if:true={isDataReady}>
+        <div class="custom-backdrop" if:true={isOpen}></div>
+
+        <section if:true={isOpen} class="custom-modal">
+            <div class="custom-modal-header">
+                <div class="group-header">
+                    <h2 class="slds-text-heading_large slds-text-color_brand slds-m-bottom_small">{chatGroupName}</h2>
+                </div>
+                <button class="slds-button slds-button_icon slds-modal__close custom-close-button" title="Close" onclick={handleClose}>
+                <lightning-icon icon-name="utility:close" alternative-text="Close" size="small"></lightning-icon>
+            </button>
+            </div>
+
+            <div class="custom-modal-content">
+                <div class="chat-section slds-box slds-theme_default slds-m-top_large slds-p-around_medium">
+                    <div class="chat-grid slds-scrollable_y">
+                        <template for:each={groupChats} for:item="msg">
+                            <div key={msg.id} class={msg.cssClass}>
+                                <div class="message">
+                                    <p class="message-body">{msg.msg}</p>
+                                    <template lwc:if={msg.msgAuthor}>
+                                        <p class="message-author">{msg.msgAuthor}</p>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <div class="chat-footer">
+                        <input class="message-input" value={newMessage} onchange={handleMessageChange} data-id = {parentId}
+                        placeholder="Type a message..."></input>
+                        <button class="send-button" onclick={sendMessage} title="Send" >
+                        <svg viewBox="0 0 24 24" fill="white" class="send-icon">
+                            <path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/>
+                        </svg>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </template>
+</template>

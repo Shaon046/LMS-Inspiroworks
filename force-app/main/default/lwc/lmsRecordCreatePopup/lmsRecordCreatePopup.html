@@ -15,47 +15,52 @@
             <template for:each={fieldEntries} for:item="field">
               <template if:true={field.isLeftSide}>
                 <div key={field.label} class="slds-form-element">
-
                   <div class="slds-form-element__control">
                     <template if:true={field.isCheckbox}>
                       <lightning-input type="checkbox" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isPicklist}>
                       <lightning-combobox data-id={field.apiName} label={field.label} options={field.options}
-                        onchange={handleInputChange}>
+                        onchange={handleInputChange}  required={field.isRequired}>
                       </lightning-combobox>
                     </template>
 
                     <template if:true={field.isFile}>
                       <lightning-input type="file" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired} ></lightning-input>
                     </template>
 
                     <template if:true={field.isText}>
                       <lightning-input type={field.type} data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange} required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isDate}>
                       <lightning-input type="date" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isDatetimeLocal}>
                       <lightning-input type="datetime-local" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isNumber}>
                       <lightning-input type="number" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isSearch}>
                       <lightning-input type="search" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
+                    </template>
+                    <!-- Handle reference field (autofill with recordId if available) -->
+                    <template if:true={field.isLookup}>
+                      <lightning-input type="text" data-id={field.apiName} label={field.label} value={defaultVal}
+                         disabled  required={field.isRequired}>
+                      </lightning-input>
                     </template>
                   </div>
                 </div>
@@ -68,48 +73,54 @@
             <template for:each={fieldEntries} for:item="field">
               <template if:false={field.isLeftSide}>
                 <div key={field.label} class="slds-form-element">
-                  <!-- <label class="slds-form-element__label" for={field.label}>{field.label}</label> -->
                   <div class="slds-form-element__control">
 
                     <template if:true={field.isCheckbox}>
                       <lightning-input type="checkbox" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isPicklist}>
                       <lightning-combobox data-id={field.apiName} label={field.label} options={field.options}
-                        onchange={handleInputChange}>
+                        onchange={handleInputChange}  required={field.isRequired}>
                       </lightning-combobox>
                     </template>
 
                     <template if:true={field.isFile}>
                       <lightning-input type="file" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isText}>
                       <lightning-input type={field.type} data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isDate}>
                       <lightning-input type="date" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isDatetimeLocal}>
                       <lightning-input type="datetime-local" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isNumber}>
                       <lightning-input type="number" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
                     </template>
 
                     <template if:true={field.isSearch}>
                       <lightning-input type="search" data-id={field.apiName} label={field.label}
-                        onchange={handleInputChange}></lightning-input>
+                        onchange={handleInputChange}  required={field.isRequired}></lightning-input>
+                    </template>
+
+                    <!-- Handle reference field (autofill with recordId if available) -->
+                    <template if:true={field.isLookup}>
+                      <lightning-input type="text" data-id={field.apiName} label={field.label} value={defaultVal}
+                         disabled  required={field.isRequired}>
+                      </lightning-input>
                     </template>
                   </div>
                 </div>
@@ -118,7 +129,7 @@
           </div>
         </div>
 
-        <!-- fixed div -->
+        <!-- Fixed div -->
         <div class="fixedDiv">
           <lightning-button label="Save" variant="brand" class="create-course-button create-course-btn button"
             onclick={saveRecord}></lightning-button>

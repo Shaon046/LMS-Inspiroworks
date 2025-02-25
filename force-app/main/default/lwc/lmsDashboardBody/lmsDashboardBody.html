@@ -1,0 +1,72 @@
+<template>
+    <div class="body-container">
+        <div class="lms-body-header">
+            <div class="lms-welcome-message">
+                <div class="lms-user-welcome">Welcome {username}</div>
+                <div class="lms-welcome-description">
+                    Blended Learning combines traditional teaching with online tools to create flexible
+                </div>
+            </div>
+            <div class="lms-stats-container">
+                <div class="lms-enrolled-card lms-stats-card">
+                    <svg fill="#0881ce" width="40px" height="40px" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M21,22 L6,22 C4.34314575,22 3,20.6568542 3,19 L3,5 C3,3.34314575 4.34314575,2 6,2 L21,2 L20.9999995,18 C20.4477153,18 20,18.4477153 20,19 C20,19.5522847 20.4477153,20 21,20 L21,22 Z M18,19 C18,18.6493646 18.0601542,18.3127789 18.1707057,18 L6,18 C5.44771525,18 5,18.4477153 5,19 C5,19.5522847 5.44771525,20 6,20 L18.1707057,20 C18.0601542,19.6872211 18,19.3506354 18,19 Z M19,4 L6,4 C5.44771525,4 5,4.44771525 5,5 L5,16.1707057 C5.31277893,16.0601542 5.64936458,16 6,16 L19,16 L19,4 Z" />
+                    </svg>
+                    <div class="stats-text">
+                        <div class="number">{enrolledCourses}</div>
+                        <div class="label">Enrolled Courses</div>
+                    </div>
+                </div>
+                <div class="lms-inprogress-card">
+                    <div class="lms-inprogress-card lms-stats-card">
+                        <svg width="40px" height="40px" viewBox="0 0 24 24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 6C2 6 3.5 4 7 4C10.5 4 12 6 12 6V20C12 20 10.5 19 7 19C3.5 19 2 20 2 20V6Z"
+                                stroke="#0881ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            <path
+                                d="M12 6C12 6 13.5 4 17 4C20.5 4 22 6 22 6V20C22 20 20.5 19 17 19C13.5 19 12 20 12 20V6Z"
+                                stroke="#0881ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                        <div class="stats-text">
+                            <div class="number">{inProgressCourses}</div>
+                            <div class="label">In Progress Courses</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lms-completed-card">
+                    <div class="lms-completed-card lms-stats-card">
+                        <svg class="completed-mark" width="40px" height="40px" viewBox="0 0 48 48" version="1"
+                            xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 48 48">
+                            <polygon fill="#ffffff" points="40.6,12.1 17,35.7 7.4,26.1 4.6,29 17,41.3 43.4,14.9" />
+                        </svg>
+                        <div class="stats-text">
+                            <div class="number">{completedCourses}</div>
+                            <div class="label">Completed Courses</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-body">
+            <div class="left-body">
+                <template lwc:if={myCourses}>
+                    <div class="my-courses">
+                        <c-lms-dashboard-my-courses my-courses={myCourses}></c-lms-dashboard-my-courses>
+                    </div>
+                </template>
+
+                <template lwc:if={isRepportDataReady}>
+                    <div class="reports">
+                        <c-lms-learner-dashboard-report report-data={reportData}></c-lms-learner-dashboard-report>
+                    </div>
+                </template>
+            </div>
+            <div class="right-body">
+                <c-mytest></c-mytest>
+            </div>
+        </div>
+    </div>
+</template>

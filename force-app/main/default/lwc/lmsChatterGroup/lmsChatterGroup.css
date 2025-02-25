@@ -1,0 +1,230 @@
+.chatter-group{
+    padding: 10px 15px;
+    background-color: #ddf6ff;
+}
+.slds-grid {
+    justify-content: center;
+    gap: 1.2rem;
+    padding-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 11px;
+    height: 450px;
+    overflow-y: auto;
+
+}
+.group-details-info {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 100%; /* Position below the icon */
+    right: 0;
+    opacity: 0;
+    transition: opacity 0.4s;
+    font-size: 12px;
+    white-space: nowrap; /* Prevents line breaks */
+}
+
+.group-details-info:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.custom-width {
+    flex: 1 1 275px;
+    max-width: 275px;
+    padding: 10px;
+}
+
+.group-card {
+    background-color: white;
+    border-radius: 10px;
+    padding: 16px;
+    width: 100%;
+    box-shadow: 0px 4px 10px #96ccff;
+    border: 2px solid #96ccff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    position: relative;
+    margin-top: 40px;
+    padding-top: 30px;
+}
+
+.group-header {
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.group-icon {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 2px solid #96ccff;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.group-title {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+   
+}
+
+.group-owner,
+.group-members,
+.group-date {
+    text-align: center;
+    margin: 5px 0;
+}
+
+.group-footer {
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.see-group-button {
+    background-color: #ddf6ff;
+    color: #008fd7ec;
+    border-radius: 5px;
+    padding: 3px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    border: 2px solid #96ccff;
+    box-shadow: 0px 4px 10px #96ccff;
+    min-width: 8rem;
+    font-weight: 600;
+}
+
+.see-group-button:hover {
+    background-color: #a7e7ff;
+    color: #007dd7ec;
+    box-shadow: 0px 4px 10px #a7e7ff;
+    transition: 0.3s;
+}
+
+.group-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
+}
+
+::-webkit-scrollbar {
+    width: 8px; /* Scrollbar width */
+}
+
+::-webkit-scrollbar-track {
+    background:#ddf6ff ; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #dfdfdf; 
+    border-radius: 10px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #008fd7; 
+}
+
+.custom-icon {
+    margin-right: 15px;
+}
+
+.header {
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-right: 11.8%;
+    flex-wrap: wrap;
+}
+
+h1 {
+	font-size: 24px;
+	color: #024d8e;
+	font-weight: 600;
+}
+
+.search-bar {
+	display: flex;
+	gap: 100px;
+	align-items: center;
+}
+
+.search-input-container {
+	position: relative;
+	display: flex;
+	align-items: center;
+	width: 100%;
+}
+
+.search-icon {
+	position: absolute;
+	left: 7px;
+	display: flex;
+	align-items: center;
+	color: #888;
+	pointer-events: none;
+}
+
+.crose-icon{
+    position: absolute;
+	right: 13px;
+	display: flex;
+	align-items: center;
+	color: #888;
+	pointer-events: auto;
+    cursor: default;
+}
+
+.search-input,
+.filter-select {
+	width: 100%;
+	padding: 7px 30px 7px 45px;
+	border: 1px solid #ccc;
+	border-radius: 12px;
+	font-size: 14px;
+}
+
+.search-input:focus,
+.filter-select:focus {
+	outline: none;
+	border-color: #0070d2;
+	box-shadow: 0 0 4px rgba(0, 112, 210, 0.5);
+}
+
+.filter-select {
+	appearance: none;
+	/* Remove default select styling */
+	background-color: #fff;
+}
+
+.search-input-container .filter-select::placeholder,
+.search-input-container .search-input::placeholder {
+	color: #aaa;
+}
